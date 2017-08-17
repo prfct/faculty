@@ -28,7 +28,7 @@ public class ConnectionManager {
             Connection connection = threadConnection.get();
             if (!isConnectionActive(connection)) {
                 connection = dataSource.getConnection();
-                connection.setAutoCommit(false);
+                connection.setAutoCommit(true);
                 threadConnection.set(connection);
             }
             return connection;
@@ -46,7 +46,7 @@ public class ConnectionManager {
                 connection.commit();
             }
         } catch (SQLException e) {
-            LOGGER.warn("Commit exception!", e);
+            LOGGER.warn("Commit exception", e);
         }
     }
 
@@ -57,7 +57,7 @@ public class ConnectionManager {
                 connection.rollback();
             }
         } catch (SQLException e) {
-            LOGGER.warn("Rollback exception!", e);
+            LOGGER.warn("Rollback exception", e);
         }
     }
 
@@ -68,7 +68,7 @@ public class ConnectionManager {
                 connection.close();
             }
         } catch (SQLException e) {
-            LOGGER.warn("Close exception!", e);
+            LOGGER.warn("Close exception", e);
         }
     }
 

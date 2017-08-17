@@ -1,7 +1,6 @@
 package com.my.faculty.controller;
 
 import com.my.faculty.common.Page;
-import com.my.faculty.common.Redirect;
 import com.my.faculty.controller.course.CreateCourseController;
 import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.course.ShowCreateCoursePageController;
@@ -12,8 +11,6 @@ import com.my.faculty.util.Language;
 import com.my.faculty.util.ResourceUtil;
 import com.my.faculty.web.DispatcherModel;
 import com.my.faculty.web.HttpMethod;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -30,7 +27,6 @@ import static com.my.faculty.common.Redirect.REDIRECT;
  */
 public class ControllerContext {
     private Map<String, Map<HttpMethod, ControllerCommand>> controllers;
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     public static ControllerContext init() {
         ControllerContext controllerContext = new ControllerContext();
@@ -66,7 +62,7 @@ public class ControllerContext {
             cookie.setMaxAge(ONE_YEAR);
             response.addCookie(cookie);
         }
-        request.setAttribute(LOCALE_BUNDLE, ResourceUtil.getLocalizeResourceBundle(language));
+        ResourceUtil.getLocalizeResourceBundle(language);
         request.setAttribute(LANGUAGE, language.getCode());
         if (!redirectIfNecessary(path, response)) {
             request.getRequestDispatcher(path).forward(request, response);

@@ -4,7 +4,7 @@ package com.my.faculty.domain;
  * @author Oleksii Petrokhalko.
  */
 public enum UserRole {
-    ADMIN, OTHER;
+    ADMIN, DEFAULT;
 
     public static UserRole fromString(String string) {
         UserRole result = null;

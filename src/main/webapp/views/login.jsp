@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="messages" var="general"/>
+
+<%--${localeBundle.getString('login.header.text')}--%>
 
 <c:choose>
     <c:when test="${showRegisterForm != null && showRegisterForm}">
@@ -12,11 +18,12 @@
         <c:set var="registrationStyle" value="display: none;"/>
     </c:otherwise>
 </c:choose>
-<html>
+<html lang="${language}">
 <head>
     <title>Login page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         .error {
@@ -172,10 +179,14 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="javascript:void(0)" class="active" id="login-form-link">${localeBundle.getString('login.header.text')}</a>
+                            <a href="javascript:void(0)" class="active" id="login-form-link">
+                                <fmt:message key="login.header.text" bundle="${general}"/>
+                            </a>
                         </div>
                         <div class="col-xs-6">
-                            <a href="javascript:void(0)" id="register-form-link">${localeBundle.getString('registration.header.text')}</a>
+                            <a href="javascript:void(0)" id="register-form-link">
+                                <fmt:message key="registration.header.text" bundle="${general}"/>
+                            </a>
                         </div>
                     </div>
                     <hr>
@@ -216,7 +227,7 @@
                                     <c:if test="${not empty username_error}">
                                         <div class="alert alert-danger" userRole="alert">
                                             <span class="glyphicon glyphicon-exclamation-sign"
-                                                    aria-hidden="true"></span>
+                                                  aria-hidden="true"></span>
                                             <span class="sr-only">Error:</span>
                                                 ${username_error}
                                         </div>
@@ -228,7 +239,7 @@
                                     <c:if test="${not empty email_error}">
                                         <div class="alert alert-danger" userRole="alert">
                                             <span class="glyphicon glyphicon-exclamation-sign"
-                                                    aria-hidden="true"></span>
+                                                  aria-hidden="true"></span>
                                             <span class="sr-only">Error:</span>
                                                 ${email_error}
                                         </div>
@@ -250,7 +261,9 @@
                                 <div class="form-group">
                                     <c:if test="${registration_error != null}">
                                         <div class="form-group">
-                                            <label class="error">${registration_error}</label>
+                                            <label class="error">
+                                                <fmt:message key="${registration_error}" bundle="${general}"/>
+                                            </label>
                                         </div>
                                     </c:if>
                                     <div class="row">

@@ -11,6 +11,10 @@ import java.io.IOException;
 
 /**
  * @author Oleksii Petrokhalko.
+ * 1. Система Факультатив. Существует перечень Курсов, за каждым из
+которых закреплен один Преподаватель. Студент записывается на один или
+несколько Курсов. По окончании обучения Преподаватель выставляет Студенту
+и добавляет отзыв.
  */
 public class DispatcherServlet extends HttpServlet {
     private static ControllerContext cc = ApplicationContext.getControllerContext();

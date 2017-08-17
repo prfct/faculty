@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
                     user.getUsername());
             throw new UserExistException("This user already created");
         }
-        user.setUserRole(UserRole.OTHER);
+        user.setUserRole(UserRole.DEFAULT);
         User createdUser = userDao.create(user);
         LOGGER.info("Service.User with id '{}', username '{}' and email '{}' successful created",
                 createdUser.getId(), createdUser.getUsername(), createdUser.getEmail());

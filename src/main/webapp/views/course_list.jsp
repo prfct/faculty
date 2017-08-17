@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:generic_page>
@@ -19,19 +20,9 @@
                 <tr>
                     <td><a href="/app/course/detail?id=${course.id}">${course.id}</a></td>
                     <td><c:out value="${course.title}"/></td>
-                    <td><c:out value="${course.route}"/></td>
-                    <td>
-                        <c:if test="${user.userRole == 'ADMIN'}">
-                            <a href="/app/course/update?id=${course.id}"
-                               class="btn btn-success btn-sm">Update</a>
-                        </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${user.userRole == 'ADMIN'}">
-                            <a href="/app/course/delete?id=${course.id}"
-                               class="btn btn-success btn-sm">Delete</a>
-                        </c:if>
-                    </td>
+                    <%--<td><c:out value="${course.date}"/></td>--%>
+                    <td><javatime:format value="${course.createDate}" style="MS"/></td>
+
                 </tr>
             </c:forEach>
             </tbody>

@@ -20,7 +20,7 @@
                         <input class="form-control" id="title" type="text" name="title"
                                value="<c:out value="${course.title}"/>"/>
                         <c:if test="${not empty title_error}">
-                            <div class="alert alert-danger" userRole="alert">
+                            <div class="alert alert-danger" role="alert">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span class="sr-only">Error:</span>
                                     ${title_error}
@@ -31,7 +31,7 @@
                         <label for="createDate">Course date</label>
                         <input class="form-control" id="createDate" type="text" name="createDate" value="${createDate}"/>
                         <c:if test="${not empty createDate_error}">
-                            <div class="alert alert-danger" userRole="alert">
+                            <div class="alert alert-danger" role="alert">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 <span class="sr-only">Error:</span>
                                     ${createDate_error}

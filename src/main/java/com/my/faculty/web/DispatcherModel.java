@@ -31,11 +31,12 @@ public class DispatcherModel implements Model {
 
     @Override
     public String findParameter(String key) {
+        String result = null;
         String[] params = parameters.get(key);
-        if (params == null || params.length == 0) {
-            throw new IllegalArgumentException("Enter parameter");
+        if (params != null && params.length > 0) {
+            result = params[0];
         }
-        return params[0];
+        return result;
     }
 
     @Override

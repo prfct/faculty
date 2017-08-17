@@ -8,5 +8,6 @@ import com.my.faculty.service.user.UserService;
  */
 public interface ServiceFactory {
     CourseService createCourseService();
+
     UserService createUserService();
 }

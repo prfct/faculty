@@ -41,7 +41,7 @@ public class CreateUserController implements ControllerCommand {
                 LOGGER.info("Controller.Created new User, id = '{}'", createdUser.getId());
                 return Redirect.LOGIN;
             } catch (UserExistException e) {
-                errors.put("registration_error", e.getMessage());
+                errors.put("registration_error", "login.error.userAlreadyCreated");
             }
         }
         model.setAttributes(errors);

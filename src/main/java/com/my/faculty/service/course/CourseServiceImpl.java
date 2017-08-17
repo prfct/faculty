@@ -3,8 +3,7 @@ package com.my.faculty.service.course;
 import com.my.faculty.context.ApplicationContext;
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.CourseStudent;
-import com.my.faculty.persistance.dao.course.CourseDao;
-import com.my.faculty.persistance.dao.user.UserDao;
+import com.my.faculty.persistance.dao.DaoContext;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @author Oleksii Petrokhalko.
  */
 public class CourseServiceImpl implements CourseService {
-    private CourseDao courseDao = ApplicationContext.getDaoContext().getCourseDao();
+    private DaoContext dc = ApplicationContext.getDaoContext();
 
     @Override
     public Course createCourse() {
@@ -26,6 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> showCourseListPage() {
-        return null;
+        List<Course> courses = dc.getCourseDao().readAll();
+        return courses;
     }
 }

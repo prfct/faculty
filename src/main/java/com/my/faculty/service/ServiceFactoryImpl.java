@@ -10,7 +10,6 @@ import com.my.faculty.service.user.UserServiceImpl;
  */
 public class ServiceFactoryImpl implements ServiceFactory {
 
-
     @Override
     public CourseService createCourseService() {
         return new CourseServiceImpl();

@@ -1,13 +1,17 @@
 <%@tag description="Page template" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@attribute name="title" fragment="true" %>
-<html>
+
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="messages" var="general"/>
+
+<html lang="${language}">
 <head>
     <title>
         <jsp:invoke fragment="title"/>
     </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
