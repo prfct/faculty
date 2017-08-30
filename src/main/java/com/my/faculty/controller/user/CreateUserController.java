@@ -3,14 +3,14 @@ package com.my.faculty.controller.user;
 import com.my.faculty.common.Key;
 import com.my.faculty.common.Page;
 import com.my.faculty.common.Redirect;
-import com.my.faculty.context.ApplicationContext;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.controller.parsers.EmailParser;
 import com.my.faculty.controller.parsers.NameParser;
 import com.my.faculty.controller.parsers.PasswordParser;
 import com.my.faculty.domain.User;
-import com.my.faculty.service.ServiceContext;
 import com.my.faculty.service.exception.UserExistException;
+import com.my.faculty.service.user.UserService;
+import com.my.faculty.service.user.UserServiceImpl;
 import com.my.faculty.web.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import static com.my.faculty.common.Key.USERNAME;
  */
 public class CreateUserController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-    private ServiceContext sc = ApplicationContext.getServiceContext();
+    private UserService us = UserServiceImpl.getInstance();
 
     @Override
     public String execute(Model model) {
@@ -37,7 +37,7 @@ public class CreateUserController implements ControllerCommand {
         String password = model.findParameter(PASSWORD, new PasswordParser(errors));
         if (errors.isEmpty()) {
             try {
-                User createdUser = sc.getUserService().createUser(new User(username, email, password));
+                User createdUser = us.createUser(new User(username, email, password));
                 LOGGER.info("Controller.Created new User, id = '{}'", createdUser.getId());
                 return Redirect.LOGIN;
             } catch (UserExistException e) {

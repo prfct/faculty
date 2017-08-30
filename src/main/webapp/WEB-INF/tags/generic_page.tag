@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@attribute name="title" fragment="true" %>
 
-<fmt:setLocale value="${language}"/>
-<fmt:setBundle basename="messages" var="general"/>
+<%--<fmt:setLocale value="${language}"/>--%>
+<%--<fmt:setBundle basename="messages" var="general"/>--%>
 
 <html lang="${language}">
 <head>

@@ -28,14 +28,21 @@ import static com.my.faculty.common.Redirect.REDIRECT;
 public class ControllerContext {
     private Map<String, Map<HttpMethod, ControllerCommand>> controllers;
 
-    public static ControllerContext init() {
-        ControllerContext controllerContext = new ControllerContext();
-        initControllers(controllerContext);
-        return controllerContext;
+
+    private ControllerContext() {
+        initControllers();
     }
 
-    private static void initControllers(ControllerContext controllerContext) {
-        controllerContext.controllers = new ControllerBuilder()
+    private static class InstanceHolder {
+        private static final ControllerContext INSTANCE = new ControllerContext();
+    }
+
+    public static ControllerContext getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
+    private void initControllers() {
+        controllers = new ControllerBuilder()
                 .register("/login", new ShowLoginPageController())
                 .register("/login", HttpMethod.POST, new LoginUserController())
                 .register("/registration", HttpMethod.POST, new CreateUserController())

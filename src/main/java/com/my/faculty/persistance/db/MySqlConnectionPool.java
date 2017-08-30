@@ -1,7 +1,10 @@
 package com.my.faculty.persistance.db;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.sql.ConnectionPoolDataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -11,13 +14,21 @@ import java.util.Properties;
 /**
  * @author Oleksii Petrokhalko.
  */
-public class DataSource {
-    private static DataSource instance = new DataSource();
+public class MySqlConnectionPool implements ConnectionPool {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private BasicDataSource basicDataSource;
 
 
-    private DataSource() {
+    private MySqlConnectionPool() {
         initDataSource();
+    }
+
+    private static class InstanceHolder {
+        private static final MySqlConnectionPool INSTANCE = new MySqlConnectionPool();
+    }
+
+    public static MySqlConnectionPool getInstance() {
+        return InstanceHolder.INSTANCE;
     }
 
     private void initDataSource() {
@@ -28,29 +39,25 @@ public class DataSource {
             properties.load(inStream);
             basicDataSource.setDriverClassName(properties.getProperty("driver.class"));
         } catch (IOException e) {
-            //LOGGER.warn("Some problem was occurred while reading property file " + e);
+            LOGGER.warn("Some problem was occurred while reading property file " + e);
         }
 
         basicDataSource.setUrl(properties.getProperty("url"));
         basicDataSource.setUsername(properties.getProperty("user"));
         basicDataSource.setPassword(properties.getProperty("password"));
-//
 //        basicDataSource.setMinIdle(5);
 //        basicDataSource.setMaxIdle(10);
     }
 
-    public Connection getConnection() {
+    @Override
+    public AbstractConnection getConnection() {
         Connection connection = null;
         try {
             connection = basicDataSource.getConnection();
         } catch (SQLException e) {
-            //LOGGER.warn("Some problem was occurred while getting connection to BD " + e);
+            LOGGER.warn("Some problem was occurred while getting connection to BD " + e);
         }
-        return connection;
-    }
-
-    public static DataSource getInstance() {
-        return instance;
+        return new AbstractConnectionImpl(connection);
     }
 
 }

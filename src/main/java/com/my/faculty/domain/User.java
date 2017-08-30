@@ -1,6 +1,5 @@
 package com.my.faculty.domain;
 
-
 /**
  * @author Oleksii Petrokhalko.
  */

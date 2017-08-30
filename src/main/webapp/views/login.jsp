@@ -6,7 +6,8 @@
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="messages" var="general"/>
 
-<%--${localeBundle.getString('login.header.text')}--%>
+<%--${localeBundle.getString('login.error.incorrectEmailOrPassword')}--%>
+<%--<fmt:message key="login.error.incorrectEmailOrPassword" bundle="${general}"/>--%>
 
 <c:choose>
     <c:when test="${showRegisterForm != null && showRegisterForm}">
@@ -207,7 +208,7 @@
                                 <div class="form-group">
                                     <c:if test="${login_error != null}">
                                         <div class="form-group">
-                                            <label class="error">${login_error}</label>
+                                            <fmt:message key="${login_error}" bundle="${general}"/>
                                         </div>
                                     </c:if>
                                     <div class="row">
