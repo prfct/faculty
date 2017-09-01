@@ -2,6 +2,10 @@ package com.my.faculty.persistance.dao;
 
 import com.my.faculty.persistance.dao.course.CourseDao;
 import com.my.faculty.persistance.dao.course.CourseDaoImpl;
+import com.my.faculty.persistance.dao.student.StudentDao;
+import com.my.faculty.persistance.dao.student.StudentDaoImpl;
+import com.my.faculty.persistance.dao.teacher.TeacherDao;
+import com.my.faculty.persistance.dao.teacher.TeacherDaoImpl;
 import com.my.faculty.persistance.dao.user.UserDao;
 import com.my.faculty.persistance.dao.user.UserDaoImpl;
 import com.my.faculty.persistance.db.AbstractConnection;
@@ -41,6 +45,18 @@ public class MySqlDaoFactory extends DaoFactory {
     public UserDao getUserDao(AbstractConnection connection) {
         checkConnection(connection);
         return new UserDaoImpl(getSqlConnection(connection));
+    }
+
+    @Override
+    public TeacherDao getTeacherDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new TeacherDaoImpl(getSqlConnection(connection));
+    }
+
+    @Override
+    public StudentDao getStudentDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new StudentDaoImpl(getSqlConnection(connection));
     }
 
 

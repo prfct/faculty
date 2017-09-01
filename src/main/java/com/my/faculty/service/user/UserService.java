@@ -5,12 +5,18 @@ import com.my.faculty.service.exception.UserExistException;
 import com.my.faculty.service.exception.UserNotExistException;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Oleksii Petrokhalko.
  */
 public interface UserService {
-    User createUser(User user) throws UserExistException;
+    User createUser(String username, String email, String password) throws UserExistException;
+
     User loginUser(String email, String password) throws UserNotExistException;
-    List<User> showUserList();
+
+    Set<User> showUserList();
+
+    User read(Long id);
+
 }

@@ -37,7 +37,7 @@ public class CreateUserController implements ControllerCommand {
         String password = model.findParameter(PASSWORD, new PasswordParser(errors));
         if (errors.isEmpty()) {
             try {
-                User createdUser = us.createUser(new User(username, email, password));
+                User createdUser = us.createUser(username, email, password);
                 LOGGER.info("Controller.Created new User, id = '{}'", createdUser.getId());
                 return Redirect.LOGIN;
             } catch (UserExistException e) {

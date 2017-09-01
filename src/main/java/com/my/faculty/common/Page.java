@@ -9,7 +9,8 @@ public interface Page {
     String BAD_URL = "/views/404.jsp";
     String ERROR = "/views/error.jsp";
     String COURSE_CREATE = "/views/course_create.jsp";
-    String COURSE_UPDATE = "/views/tour_update.jsp";
+    String SET_STUDENT = "/views/user_update.jsp";
+    String SET_TEACHER = "/views/set_teacher.jsp";
     String COURSE_LIST = "/views/course_list.jsp";
     String TOUR_DETAIL = "/views/tour_detail.jsp";
 }

@@ -4,9 +4,7 @@ import com.my.faculty.common.Page;
 import com.my.faculty.controller.course.CreateCourseController;
 import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.course.ShowCreateCoursePageController;
-import com.my.faculty.controller.user.CreateUserController;
-import com.my.faculty.controller.user.LoginUserController;
-import com.my.faculty.controller.user.ShowLoginPageController;
+import com.my.faculty.controller.user.*;
 import com.my.faculty.util.Language;
 import com.my.faculty.util.ResourceUtil;
 import com.my.faculty.web.DispatcherModel;
@@ -50,6 +48,10 @@ public class ControllerContext {
                 .register("/course/create", new ShowCreateCoursePageController())
                 .register("/course/create", HttpMethod.POST, new CreateCourseController())
                 .register("/localization", HttpMethod.POST, new LocalizationController())
+                .register("/user/list", new ShowUserListPageController())
+                .register("/user/update", new ShowuUpdateUserPageController())
+                .register("/student/set", new CreateStudentController())
+                .register("/teacher/set",new CreateTeacherController())
                 .build();
 
     }

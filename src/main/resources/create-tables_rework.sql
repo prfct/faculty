@@ -1,23 +1,20 @@
-CREATE TABLE IF NOT EXISTS user_role (
-  user_role_id INT NOT NULL AUTO_INCREMENT,
-  userType VARCHAR(64),
-  PRIMARY KEY (user_role_id)
+CREATE TABLE IF NOT EXISTS user (
+  user_id  INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(64),
+  email    VARCHAR(64),
+  password VARCHAR(64),
+  userRole VARCHAR(64),
+  PRIMARY KEY (user_id)
 )
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-INSERT INTO user_role (userType) VALUES ('admin');
-INSERT INTO user_role (userType) VALUES ('student');
-INSERT INTO user_role (userType) VALUES ('teacher');
-
-CREATE TABLE IF NOT EXISTS user (
-  user_id    INT NOT NULL AUTO_INCREMENT,
-  username   VARCHAR(64),
-  email      VARCHAR(64),
-  password   VARCHAR(64),
-  user_role_id INT,
-  CONSTRAINT fk_user_role_user FOREIGN KEY (user_role_id) REFERENCES user_role (user_role_id),
-  PRIMARY KEY (user_id)
+CREATE TABLE IF NOT EXISTS teacher (
+  teacher_id   INT NOT NULL AUTO_INCREMENT,
+  user_id      INT,
+  CONSTRAINT fk_user_teacher FOREIGN KEY (user_id) REFERENCES user (user_id),
+  diplomNumber INT,
+  PRIMARY KEY (teacher_id)
 )
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
@@ -33,15 +30,15 @@ CREATE TABLE IF NOT EXISTS course (
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-CREATE TABLE IF NOT EXISTS course_student (
-  course_student_id INT NOT NULL AUTO_INCREMENT,
-  course_id         INT,
-  CONSTRAINT fk_course_course_student FOREIGN KEY (course_id) REFERENCES course (course_id),
-  student_id        INT,
-  CONSTRAINT fk_user_course_student FOREIGN KEY (student_id) REFERENCES student (student_id),
-  mark              INT,
-  feedback          VARCHAR(256),
-  PRIMARY KEY (course_student_id)
+CREATE TABLE IF NOT EXISTS student (
+  student_id INT NOT NULL AUTO_INCREMENT,
+  course_id  INT,
+  CONSTRAINT fk_course_student FOREIGN KEY (course_id) REFERENCES course (course_id),
+  user_id    INT,
+  CONSTRAINT fk_user_student FOREIGN KEY (user_id) REFERENCES user (user_id),
+  mark       INT,
+  feedback   VARCHAR(256),
+  PRIMARY KEY (student_id)
 )
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
