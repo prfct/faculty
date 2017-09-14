@@ -58,7 +58,6 @@ public class ControllerContext {
     public void process(HttpMethod httpMethod, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DispatcherModel model = new DispatcherModel();
         Language language = Language.fromCode(getCurrentLanguageCode(request));
-        model.setCurrentLanguage(language);
         model.setParameters(request.getParameterMap());
         model.setSession(request.getSession());
         String path = executeBusinessLogic(httpMethod, model, request);

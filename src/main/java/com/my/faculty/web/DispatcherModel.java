@@ -3,10 +3,8 @@ package com.my.faculty.web;
 import com.my.faculty.controller.parsers.Parser;
 import com.my.faculty.util.Language;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -17,7 +15,7 @@ public class DispatcherModel implements Model {
     private Map<String, String[]> parameters;
     private HttpSession session;
     private Map<String, String> cookies = new HashMap<>();
-    private Language currentLanguage;
+//    private Language currentLanguage;
 
     @Override
     public void setAttribute(String key, Object o) {
@@ -59,9 +57,9 @@ public class DispatcherModel implements Model {
         cookies.put(key, val);
     }
 
-    public void setCurrentLanguage(Language currentLanguage) {
-        this.currentLanguage = currentLanguage;
-    }
+//    public void setCurrentLanguage(Language currentLanguage) {
+//        this.currentLanguage = currentLanguage;
+//    }
 
     public Map<String, Object> getAttributes() {
         return attributes;
