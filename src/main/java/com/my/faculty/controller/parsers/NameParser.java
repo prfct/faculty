@@ -9,8 +9,7 @@ import java.util.regex.Pattern;
  */
 public class NameParser extends Parser<String> {
     private static final Pattern VALID_NAME_REGEX = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-_\\.]{2,10}$");
-    private static final String INCORRECT_NAME = "Incorrect name, 3 to 10 characters it can be letters or numbers," +
-            " first should be letter";
+    private static final String INCORRECT_NAME = "registration.error.incorrectUsername";
     private StringParser stringParser = new StringParser();
     private Map<String, Object> errors;
 

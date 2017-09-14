@@ -58,28 +58,36 @@
                     <label for="nameInput">Username</label>
                     <input class="form-control" id="nameInput" type="text" name="username"/>
                     <c:if test="${not empty username_error}">
-                        <span class="error">${username_error}</span>
+                        <span class="error">
+                            <fmt:message key="${username_error}" bundle="${general}"/>
+                        </span>
                     </c:if>
                 </div>
                 <div class="form-group">
                     <label for="emailInput">Email</label>
                     <input class="form-control" id="emailInput" type="text" name="email"/>
                     <c:if test="${not empty email_error}">
-                        <span class="error">${email_error}</span>
+                        <span class="error">
+                            <fmt:message key="${email_error}" bundle="${general}"/>
+                        </span>
                     </c:if>
                 </div>
                 <div class="form-group">
                     <label for="passwordInput">Password</label>
                     <input class="form-control" id="passwordInput" type="password" name="password"/>
                     <c:if test="${not empty password_error}">
-                        <span class="error">${password_error}</span>
+                        <span class="error">
+                            <fmt:message key="${password_error}" bundle="${general}"/>
+                        </span>
                     </c:if>
                 </div>
                 <div class="form-group">
                     <label for="passwordInput">Birthday</label>
                     <input class="form-control" id="passwordInput" type="date" name="birthday"/>
                     <c:if test="${not empty birthday_error}">
-                        <span class="error">${birthday_error}</span>
+                        <span class="error">
+                            <fmt:message key="${birthday_error}" bundle="${general}"/>
+                        </span>
                     </c:if>
                 </div>
                 <div class="form-group">

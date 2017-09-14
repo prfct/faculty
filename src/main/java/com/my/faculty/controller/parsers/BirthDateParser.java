@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class BirthDateParser extends Parser<LocalDateTime> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    private static final String WRONG_DATE_FORMAT = "BirthDate incorrect, should be mm-dd-yyyy ";
+    private static final String WRONG_DATE_FORMAT = "registration.error.incorrectBirthday";
     private Map<String, Object> errors;
 
     public BirthDateParser(Map<String, Object> errors) {

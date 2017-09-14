@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class EmailParser  extends Parser<String> {
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private static final String INCORRECT_EMAIL = "Incorrect email, should be like example@mail.com";
+    private static final String INCORRECT_EMAIL = "registration.error.incorrectEmail";
     private StringParser stringParser = new StringParser();
     private Map<String, Object> errors;
 

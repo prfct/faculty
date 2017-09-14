@@ -9,8 +9,7 @@ import java.util.regex.Pattern;
  */
 public class PasswordParser extends Parser<String> {
     private static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
-    private static final String INCORRECT_PASSWORD = "Incorrect password, 6 to 20 characters with at least one " +
-            "digit, one upper, lower case letter";
+    private static final String INCORRECT_PASSWORD = "registration.error.incorrectPassword";
     private StringParser stringParser = new StringParser();
     private Map<String, Object> errors;
 

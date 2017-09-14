@@ -42,8 +42,8 @@ public class RegistrationController implements ControllerCommand {
     @Override
     public String execute(Model model) {
         Map<String, Object> errors = new HashMap<>();
-        String email = model.findParameter(EMAIL, new EmailParser(errors));
         String username = model.findParameter(USERNAME, new NameParser(errors));
+        String email = model.findParameter(EMAIL, new EmailParser(errors));
         String password = model.findParameter(PASSWORD, new PasswordParser(errors));
         LocalDateTime birthDate = model.findParameter(BIRTHDAY, new BirthDateParser(errors));
         if (errors.isEmpty()) {
