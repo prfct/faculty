@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS students (
 
 
 INSERT INTO user (username, birthDate) VALUES ('admin', STR_TO_DATE('17/07/2013', '%d/%m/%Y'));
-INSERT INTO auth (email, password, user_id) VALUES ('admin@mail.ru', '123', 1);
+INSERT INTO auth (email, password, user_id) VALUES ('admin', 'admin', 1);
 INSERT INTO role (role) VALUES ('ADMIN');
 INSERT INTO role (role) VALUES ('STUDENT');
 INSERT INTO role (role) VALUES ('TEACHER');
