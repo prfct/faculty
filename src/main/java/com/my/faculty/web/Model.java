@@ -24,6 +24,4 @@ public interface Model {
 
     void setCookie(String key, String val);
 
-    Language getCurrentLanguage();
-
 }

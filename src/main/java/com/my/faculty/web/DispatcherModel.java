@@ -59,11 +59,6 @@ public class DispatcherModel implements Model {
         cookies.put(key, val);
     }
 
-    @Override
-    public Language getCurrentLanguage() {
-        return currentLanguage;
-    }
-
     public void setCurrentLanguage(Language currentLanguage) {
         this.currentLanguage = currentLanguage;
     }
