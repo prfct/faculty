@@ -56,7 +56,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label for="nameInput">Username</label>
-                    <input class="form-control" id="nameInput" type="text" name="username"/>
+                    <input class="form-control" id="nameInput" type="text" name="username" value="${username}"/>
                     <c:if test="${not empty username_error}">
                         <span class="error">
                             <fmt:message key="${username_error}" bundle="${general}"/>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="form-group">
                     <label for="emailInput">Email</label>
-                    <input class="form-control" id="emailInput" type="text" name="email"/>
+                    <input class="form-control" id="emailInput" type="text" name="email" value="${email}"/>
                     <c:if test="${not empty email_error}">
                         <span class="error">
                             <fmt:message key="${email_error}" bundle="${general}"/>
