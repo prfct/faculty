@@ -36,14 +36,6 @@ public class User {
         this.username = username;
     }
 
-//    public LocalDate getBirthDate() {
-//        return birthDate;
-//    }
-//
-//    public void setBirthDate(LocalDate birthDate) {
-//        this.birthDate = birthDate;
-//    }
-
     public LocalDateTime getBirthDate() {
         return birthDate;
     }
