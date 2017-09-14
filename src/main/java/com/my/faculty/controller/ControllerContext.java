@@ -95,8 +95,7 @@ public class ControllerContext {
         ControllerCommand controller = findController(request.getPathInfo(), httpMethod);
         if (controller != null) {
             try {
-                String path = controller.execute(model);
-                return path;
+                return controller.execute(model);
             } catch (Exception e) {
                 return Page.ERROR;
             }
