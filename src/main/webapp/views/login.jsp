@@ -61,7 +61,7 @@
                 </div>
                 <div class="form-group">
                     <label for="passwordInput">Password</label>
-                    <input class="form-control" id="passwordInput" name="password"/>
+                    <input class="form-control" id="passwordInput" type="password" name="password"/>
                 </div>
                 <div class="form-group">
                     <c:if test="${login_error != null}">
