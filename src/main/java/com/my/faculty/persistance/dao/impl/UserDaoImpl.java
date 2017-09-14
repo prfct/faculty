@@ -1,9 +1,8 @@
-package com.my.faculty.persistance.dao.user;
+package com.my.faculty.persistance.dao.impl;
 
 import com.my.faculty.common.Key;
-import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
-import com.my.faculty.domain.UserRole;
+import com.my.faculty.persistance.dao.UserDao;
 import com.my.faculty.persistance.db.QueryException;
 
 import java.sql.*;

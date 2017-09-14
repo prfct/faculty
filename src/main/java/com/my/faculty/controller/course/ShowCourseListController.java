@@ -3,8 +3,8 @@ package com.my.faculty.controller.course;
 import com.my.faculty.common.Page;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.domain.Course;
-import com.my.faculty.service.course.CourseService;
-import com.my.faculty.service.course.CourseServiceImpl;
+import com.my.faculty.service.CourseService;
+import com.my.faculty.service.impl.CourseServiceImpl;
 import com.my.faculty.web.Model;
 
 import java.util.HashMap;

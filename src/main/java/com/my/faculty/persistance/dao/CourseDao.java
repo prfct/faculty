@@ -1,4 +1,4 @@
-package com.my.faculty.persistance.dao.course;
+package com.my.faculty.persistance.dao;
 
 import com.my.faculty.domain.Course;
 

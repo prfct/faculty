@@ -51,8 +51,6 @@ public class ControllerContext {
                 .register("/localization", HttpMethod.POST, new LocalizationController())
                 .register("/user/list", new ShowUserListPageController())
                 .register("/user/update", new ShowUpdateUserPageController())
-                .register("/student/set", new CreateStudentController())
-                .register("/teacher/set",new CreateTeacherController())
                 .build();
 
     }
@@ -86,7 +84,6 @@ public class ControllerContext {
             for (Cookie cookie : cookies) {
                 if (LANGUAGE.equals(cookie.getName())) {
                     result = cookie.getValue();
-
                     break;
                 }
             }

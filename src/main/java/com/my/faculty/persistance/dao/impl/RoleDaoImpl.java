@@ -1,8 +1,9 @@
-package com.my.faculty.persistance.dao.role;
+package com.my.faculty.persistance.dao.impl;
 
 
 import com.my.faculty.domain.Role;
 import com.my.faculty.domain.UserRole;
+import com.my.faculty.persistance.dao.RoleDao;
 import com.my.faculty.persistance.db.QueryException;
 
 import java.sql.*;

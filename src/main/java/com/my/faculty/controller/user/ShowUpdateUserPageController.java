@@ -5,8 +5,8 @@ import com.my.faculty.common.Page;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.domain.User;
 import com.my.faculty.domain.UserRole;
-import com.my.faculty.service.user.UserService;
-import com.my.faculty.service.user.UserServiceImpl;
+import com.my.faculty.service.UserService;
+import com.my.faculty.service.impl.UserServiceImpl;
 import com.my.faculty.web.Model;
 
 public class ShowUpdateUserPageController implements ControllerCommand {

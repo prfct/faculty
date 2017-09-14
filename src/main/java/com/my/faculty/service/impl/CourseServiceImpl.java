@@ -1,10 +1,11 @@
-package com.my.faculty.service.course;
+package com.my.faculty.service.impl;
 
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Students;
 import com.my.faculty.persistance.dao.DaoFactory;
 import com.my.faculty.persistance.db.ConnectionPool;
 import com.my.faculty.persistance.db.MySqlConnectionPool;
+import com.my.faculty.service.CourseService;
 
 import java.util.List;
 

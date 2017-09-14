@@ -1,4 +1,4 @@
-package com.my.faculty.persistance.dao.auth;
+package com.my.faculty.persistance.dao;
 
 import com.my.faculty.domain.Auth;
 

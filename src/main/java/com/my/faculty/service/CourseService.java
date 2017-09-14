@@ -1,4 +1,4 @@
-package com.my.faculty.service.course;
+package com.my.faculty.service;
 
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Students;

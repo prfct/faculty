@@ -1,4 +1,4 @@
-package com.my.faculty.persistance.dao.role;
+package com.my.faculty.persistance.dao;
 
 
 import com.my.faculty.domain.Auth;

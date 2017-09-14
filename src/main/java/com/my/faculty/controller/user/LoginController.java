@@ -5,10 +5,9 @@ import com.my.faculty.common.Redirect;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.controller.parsers.StringParser;
 import com.my.faculty.domain.Auth;
-import com.my.faculty.domain.User;
 import com.my.faculty.service.exception.UserNotExistException;
-import com.my.faculty.service.user.UserService;
-import com.my.faculty.service.user.UserServiceImpl;
+import com.my.faculty.service.UserService;
+import com.my.faculty.service.impl.UserServiceImpl;
 import com.my.faculty.web.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.my.faculty.common.Key.*;
-
 
 /**
  * @author Oleksii Petrokhalko.

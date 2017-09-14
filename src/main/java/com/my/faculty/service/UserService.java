@@ -1,13 +1,11 @@
-package com.my.faculty.service.user;
+package com.my.faculty.service;
 
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 import com.my.faculty.service.exception.UserExistException;
 import com.my.faculty.service.exception.UserNotExistException;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 /**
