@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS user (
   username VARCHAR(64),
   email    VARCHAR(64),
   password VARCHAR(64),
-  userRole VARCHAR(64),
   PRIMARY KEY (user_id)
 )
   CHARACTER SET utf8

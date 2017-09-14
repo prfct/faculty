@@ -1,7 +1,7 @@
 package com.my.faculty.service.course;
 
 import com.my.faculty.domain.Course;
-import com.my.faculty.domain.CourseStudent;
+import com.my.faculty.domain.Students;
 import com.my.faculty.persistance.dao.DaoFactory;
 import com.my.faculty.persistance.db.ConnectionPool;
 import com.my.faculty.persistance.db.MySqlConnectionPool;
@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseStudent> showCreateCoursePage() {
+    public List<Students> showCreateCoursePage() {
         return null;
     }
 

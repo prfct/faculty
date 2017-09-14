@@ -1,6 +1,5 @@
 package com.my.faculty.persistance.dao.teacher;
 
-import com.my.faculty.domain.Teacher;
 import com.my.faculty.domain.User;
 import com.my.faculty.domain.UserRole;
 
@@ -25,19 +24,19 @@ public class SelectTeacherByCourseIdCommand  {
         preparedStatement.setLong(1, course_id);
     }
 
-    protected Teacher parseResultSet(ResultSet resultSet) throws SQLException {
-        Teacher teacher = null;
-        while (resultSet.next()) {
-            teacher = new Teacher();
-            teacher.setId(resultSet.getLong("teacher_id"));
-            User user = new User();
-            user.setId(resultSet.getLong("user_id"));
-            user.setUsername(resultSet.getString("username"));
-            user.setEmail(resultSet.getString("email"));
-            user.setPassword(resultSet.getString("password"));
-            user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
-            teacher.setUser(user);
-        }
-        return teacher;
-    }
+//    protected Teacher parseResultSet(ResultSet resultSet) throws SQLException {
+//        Teacher teacher = null;
+//        while (resultSet.next()) {
+//            teacher = new Teacher();
+//            teacher.setId(resultSet.getLong("teacher_id"));
+//            User user = new User();
+//            user.setId(resultSet.getLong("user_id"));
+//            user.setUsername(resultSet.getString("username"));
+//            user.setEmail(resultSet.getString("email"));
+//            user.setPassword(resultSet.getString("password"));
+//            user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
+//            teacher.setUser(user);
+//        }
+//        return teacher;
+//    }
 }

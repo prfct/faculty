@@ -1,6 +1,5 @@
 package com.my.faculty.service.teacher;
 
-import com.my.faculty.domain.Teacher;
 import com.my.faculty.persistance.dao.DaoFactory;
 
 public class TeacherServiceImpl implements TeacherService {
@@ -18,9 +17,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
 
-    @Override
-    public Teacher create(Long userId) {
-
-        return null;
-    }
+//    @Override
+//    public Teacher create(Long userId) {
+//
+//        return null;
+//    }
 }

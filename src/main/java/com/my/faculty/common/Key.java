@@ -18,6 +18,7 @@ public interface Key {
     String TOUR_HOT = "hot";
     String TOUR_ACTIVE = "active";
     String TOURS = "tours";
+    String COURSES_ERROR = "courses_error";
 
 
 
@@ -34,8 +35,10 @@ public interface Key {
      */
     String EMAIL = "email";
     String PASSWORD = "password";
+    String BIRTHDAY = "birthday";
     String USERNAME = "username";
     String USER = "user";
+    String AUTH = "auth";
     String USERS = "users";
 
     /*

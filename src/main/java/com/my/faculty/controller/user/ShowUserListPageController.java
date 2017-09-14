@@ -18,7 +18,7 @@ public class ShowUserListPageController implements ControllerCommand {
     public String execute(Model model) {
         User authUser = (User) model.getSessionAttribute("user");
         Set<User> users = userService.showUserList();
-        if (users != null && !users.isEmpty() && authUser.getUserRole() == UserRole.ADMIN) {
+        if (users != null) {
             model.setAttribute(Key.USERS, users);
         }
         return Page.USER_LIST;

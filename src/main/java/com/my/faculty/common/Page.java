@@ -5,6 +5,7 @@ package com.my.faculty.common;
  */
 public interface Page {
     String LOGIN = "/views/login.jsp";
+    String REGISTRATION = "/views/registration.jsp";
     String USER_LIST = "/views/user_list.jsp";
     String BAD_URL = "/views/404.jsp";
     String ERROR = "/views/error.jsp";

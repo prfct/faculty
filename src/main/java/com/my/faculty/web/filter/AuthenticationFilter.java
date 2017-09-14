@@ -19,8 +19,10 @@ public class AuthenticationFilter implements Filter {
             filterChain.doFilter(request, response);
             return;
         }
-        if ("/login".equals(req.getPathInfo()) || req.getSession().getAttribute("user") != null
-                || "/registration".equals(req.getPathInfo())) {
+        if ("/login".equals(req.getPathInfo())
+                || req.getSession().getAttribute("auth") != null
+                || "/registration".equals(req.getPathInfo())
+                || "/localization".equals(req.getPathInfo())) {
             filterChain.doFilter(request, response);
         } else {
             resp.sendRedirect("/app/login");

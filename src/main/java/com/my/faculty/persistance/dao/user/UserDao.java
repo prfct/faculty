@@ -1,6 +1,8 @@
 package com.my.faculty.persistance.dao.user;
 
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
+import com.my.faculty.domain.UserRole;
 
 import java.util.Collection;
 import java.util.Set;
@@ -10,8 +12,6 @@ import java.util.Set;
  */
 public interface UserDao {
     User create(User user);
-
-    User findByEmail(String email);
 
     Collection<User> read(int offset, int limit);
 

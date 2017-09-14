@@ -42,14 +42,15 @@ public class ControllerContext {
     private void initControllers() {
         controllers = new ControllerBuilder()
                 .register("/login", new ShowLoginPageController())
-                .register("/login", HttpMethod.POST, new LoginUserController())
-                .register("/registration", HttpMethod.POST, new CreateUserController())
+                .register("/login", HttpMethod.POST, new LoginController())
+                .register("/registration", new ShowRegisterPageCommand())
+                .register("/registration", HttpMethod.POST, RegistrationController.getInstance())
                 .register("/course/list", new ShowCourseListController())
                 .register("/course/create", new ShowCreateCoursePageController())
                 .register("/course/create", HttpMethod.POST, new CreateCourseController())
                 .register("/localization", HttpMethod.POST, new LocalizationController())
                 .register("/user/list", new ShowUserListPageController())
-                .register("/user/update", new ShowuUpdateUserPageController())
+                .register("/user/update", new ShowUpdateUserPageController())
                 .register("/student/set", new CreateStudentController())
                 .register("/teacher/set",new CreateTeacherController())
                 .build();
@@ -85,6 +86,7 @@ public class ControllerContext {
             for (Cookie cookie : cookies) {
                 if (LANGUAGE.equals(cookie.getName())) {
                     result = cookie.getValue();
+
                     break;
                 }
             }

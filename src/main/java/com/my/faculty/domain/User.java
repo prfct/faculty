@@ -1,22 +1,23 @@
 package com.my.faculty.domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 /**
  * @author Oleksii Petrokhalko.
  */
 public class User {
     private Long id;
     private String username;
-    private String email;
-    private String password;
-    private UserRole userRole;
+    private LocalDateTime birthDate;
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, LocalDateTime birthDate) {
         this.username = username;
-        this.email = email;
-        this.password = password;
+        this.birthDate = birthDate;
     }
 
     public Long getId() {
@@ -35,27 +36,19 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+//    public LocalDate getBirthDate() {
+//        return birthDate;
+//    }
+//
+//    public void setBirthDate(LocalDate birthDate) {
+//        this.birthDate = birthDate;
+//    }
+
+    public LocalDateTime getBirthDate() {
+        return birthDate;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setBirthDate(LocalDateTime birthDate) {
+        this.birthDate = birthDate;
     }
 }

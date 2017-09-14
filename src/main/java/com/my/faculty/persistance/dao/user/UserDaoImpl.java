@@ -1,6 +1,7 @@
 package com.my.faculty.persistance.dao.user;
 
 import com.my.faculty.common.Key;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 import com.my.faculty.domain.UserRole;
 import com.my.faculty.persistance.db.QueryException;
@@ -22,13 +23,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        String query = "INSERT INTO user(username, email, password, userRole) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO user(username, birthDate) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getEmail());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getUserRole().toString());
-
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(user.getBirthDate()));
             int status = preparedStatement.executeUpdate();
             if (status != Key.ONE) {
                 throw new SQLException("Creating failed, no rows affected.");
@@ -42,16 +40,6 @@ public class UserDaoImpl implements UserDao {
                     throw new SQLException("Creating failed, no ID obtained.");
                 }
             }
-        } catch (SQLException e) {
-            throw new QueryException(e);
-        }
-    }
-
-    @Override
-    public User findByEmail(String email) {
-        String query = "SELECT * FROM user WHERE email = ?";
-        try {
-            return executeAndGetUser(query, email);
         } catch (SQLException e) {
             throw new QueryException(e);
         }
@@ -87,23 +75,6 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
-    private User executeAndGetUser(String query, String email) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            User user = null;
-            while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getLong("user_id"));
-                user.setUsername(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
-            }
-            return user;
-        }
-    }
     private User executeAndGetUserById(String query, Long id) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, id);
@@ -113,9 +84,9 @@ public class UserDaoImpl implements UserDao {
                 user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 user.setUsername(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
+//                user.setEmail(resultSet.getString("email"));
+//                user.setPassword(resultSet.getString("password"));
+//                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
             }
             return user;
         }
@@ -129,9 +100,9 @@ public class UserDaoImpl implements UserDao {
                 User user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 user.setUsername(resultSet.getString("username"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
+//                user.setEmail(resultSet.getString("email"));
+//                user.setPassword(resultSet.getString("password"));
+//                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
                 users.add(user);
             }
             return users;

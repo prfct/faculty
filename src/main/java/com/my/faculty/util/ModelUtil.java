@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
  * @author Oleksii Petrokhalko.
  */
 public abstract class ModelUtil {
-    public static ResourceBundle findLocaleBundle(Model model) {
-        Language language = model.getCurrentLanguage();
-        return ResourceUtil.getLocalizeResourceBundle(language);
-    }
+//    public static ResourceBundle findLocaleBundle(Model model) {
+//        Language language = model.getCurrentLanguage();
+//        return ResourceUtil.getLocalizeResourceBundle(language);
+//    }
 }

@@ -5,6 +5,7 @@ package com.my.faculty.common;
  */
 public interface Redirect {
     String LOGIN = "redirect:/app/login";
+    String REGISTRATION = "redirect:/app/registration";
     String COURSE_LIST = "redirect:/app/course/list";
     String REDIRECT = "redirect:";
 }

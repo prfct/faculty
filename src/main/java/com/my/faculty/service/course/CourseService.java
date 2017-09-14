@@ -1,7 +1,7 @@
 package com.my.faculty.service.course;
 
 import com.my.faculty.domain.Course;
-import com.my.faculty.domain.CourseStudent;
+import com.my.faculty.domain.Students;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public interface CourseService {
     Course createCourse();
 
-    List<CourseStudent> showCreateCoursePage();
+    List<Students> showCreateCoursePage();
 
     List<Course> showCourseListPage();
 

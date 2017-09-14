@@ -1,6 +1,10 @@
+CREATE SCHEMA `faculty`
+  DEFAULT CHARACTER SET utf8;
+
 CREATE TABLE IF NOT EXISTS user (
-  user_id  INT         NOT NULL AUTO_INCREMENT,
-  username VARCHAR(64) NOT NULL,
+  user_id   INT         NOT NULL AUTO_INCREMENT,
+  username  VARCHAR(64) NOT NULL,
+  birthDate DATETIME    NOT NULL,
   PRIMARY KEY (user_id)
 )
   CHARACTER SET utf8
@@ -10,9 +14,26 @@ CREATE TABLE IF NOT EXISTS auth (
   auth_id  INT                NOT NULL AUTO_INCREMENT,
   email    VARCHAR(64) UNIQUE NOT NULL,
   password VARCHAR(64)        NOT NULL,
-  userRole VARCHAR(64)        NOT NULL,
+  user_id  INT                NOT NULL,
   PRIMARY KEY (auth_id),
-  FOREIGN KEY (auth_id) REFERENCES user(user_id)
+  FOREIGN KEY fk_auth_user (user_id) REFERENCES user (user_id)
+)
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+``
+CREATE TABLE IF NOT EXISTS role (
+  role_id INT                NOT NULL AUTO_INCREMENT,
+  role    VARCHAR(64) UNIQUE NOT NULL,
+  PRIMARY KEY (role_id)
+)
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS auth_role (
+  role_id INT NOT NULL,
+  auth_id INT NOT NULL,
+  FOREIGN KEY fk_role_auth (role_id) REFERENCES role (role_id),
+  FOREIGN KEY fk_auth_role (auth_id) REFERENCES auth (auth_id)
 )
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
@@ -42,5 +63,9 @@ CREATE TABLE IF NOT EXISTS students (
   COLLATE utf8_general_ci;
 
 
-INSERT INTO user (username) VALUES ('admin');
-INSERT INTO auth (email, password, userRole) VALUES ('admin@mail.ru', '123', 'ADMIN');
+INSERT INTO user (username, birthDate) VALUES ('admin', STR_TO_DATE('17/07/2013', '%d/%m/%Y'));
+INSERT INTO auth (email, password, user_id) VALUES ('admin@mail.ru', '123', 1);
+INSERT INTO role (role) VALUES ('ADMIN');
+INSERT INTO role (role) VALUES ('STUDENT');
+INSERT INTO role (role) VALUES ('TEACHER');
+INSERT INTO auth_role (role_id, auth_id) VALUES (1, 1);

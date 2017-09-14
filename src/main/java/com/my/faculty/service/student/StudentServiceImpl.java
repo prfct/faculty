@@ -1,7 +1,5 @@
 package com.my.faculty.service.student;
 
-import com.my.faculty.domain.Student;
-
 public class StudentServiceImpl implements StudentService {
 
     private StudentServiceImpl() {
@@ -15,8 +13,8 @@ public class StudentServiceImpl implements StudentService {
         return InstanceHolder.INSTANCE;
     }
 
-    @Override
-    public Student create() {
-        return null;
-    }
+//    @Override
+//    public Student create() {
+//        return null;
+//    }
 }

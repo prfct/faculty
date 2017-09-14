@@ -1,7 +1,5 @@
 package com.my.faculty.persistance.dao.teacher;
 
-import com.my.faculty.domain.Teacher;
-
 import java.sql.Connection;
 
 public class TeacherDaoImpl implements TeacherDao {
@@ -12,8 +10,8 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
 
-    @Override
-    public Teacher create(Teacher teacher) {
-        return null;
-    }
+//    @Override
+//    public Teacher create(Teacher teacher) {
+//        return null;
+//    }
 }

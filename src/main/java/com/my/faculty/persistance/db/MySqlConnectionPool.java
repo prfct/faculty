@@ -4,7 +4,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.sql.ConnectionPoolDataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -17,7 +16,6 @@ import java.util.Properties;
 public class MySqlConnectionPool implements ConnectionPool {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private BasicDataSource basicDataSource;
-
 
     private MySqlConnectionPool() {
         initDataSource();
@@ -41,7 +39,6 @@ public class MySqlConnectionPool implements ConnectionPool {
         } catch (IOException e) {
             LOGGER.warn("Some problem was occurred while reading property file " + e);
         }
-
         basicDataSource.setUrl(properties.getProperty("url"));
         basicDataSource.setUsername(properties.getProperty("user"));
         basicDataSource.setPassword(properties.getProperty("password"));
@@ -59,5 +56,4 @@ public class MySqlConnectionPool implements ConnectionPool {
         }
         return new AbstractConnectionImpl(connection);
     }
-
 }

@@ -4,7 +4,13 @@ package com.my.faculty.domain;
  * @author Oleksii Petrokhalko.
  */
 public enum UserRole {
-    ADMIN, DEFAULT, STUDENT_MANAGER, TEACHER_MANAGER;
+    ADMIN("admin"), DEFAULT("default"), STUDENT("student"), TEACHER("teacher");
+
+    private String name;
+
+    UserRole(String name) {
+        this.name = name;
+    }
 
     public static UserRole fromString(String string) {
         UserRole result = null;
@@ -16,4 +22,5 @@ public enum UserRole {
         }
         return result;
     }
+
 }

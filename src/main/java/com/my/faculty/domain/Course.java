@@ -11,8 +11,8 @@ public class Course {
     private String title;
     private LocalDateTime createDate;
     private Boolean active;
-    private Teacher teacher;
-    private List<CourseStudent> courseStudents;
+    private User user;
+    private List<Students> students;
 
     public Course() {
     }
@@ -49,19 +49,19 @@ public class Course {
         this.active = active;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public List<Students> getStudents() {
+        return students;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setStudents(List<Students> students) {
+        this.students = students;
     }
 
-    public List<CourseStudent> getCourseStudents() {
-        return courseStudents;
+    public User getUser() {
+        return user;
     }
 
-    public void setCourseStudents(List<CourseStudent> courseStudents) {
-        this.courseStudents = courseStudents;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

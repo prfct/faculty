@@ -4,7 +4,7 @@ import com.my.faculty.common.Page;
 import com.my.faculty.common.Redirect;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.controller.parsers.StringParser;
-import com.my.faculty.domain.Teacher;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 import com.my.faculty.service.exception.UserNotExistException;
 import com.my.faculty.service.user.UserService;
@@ -22,7 +22,7 @@ import static com.my.faculty.common.Key.*;
 /**
  * @author Oleksii Petrokhalko.
  */
-public class LoginUserController implements ControllerCommand {
+public class LoginController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final String INCORRECT_EMAIL_PASSWORD = "login.error.incorrectEmailOrPassword";
     private UserService userService = UserServiceImpl.getInstance();
@@ -33,9 +33,9 @@ public class LoginUserController implements ControllerCommand {
         String email = model.findParameter(EMAIL, new StringParser());
         String password = model.findParameter(PASSWORD, new StringParser());
         try {
-            User user = userService.loginUser(email, password);
-            model.putSessionAttribute(USER, user);
-            LOGGER.info("Controller.Success login user, id = '{}'", user.getId());
+            Auth auth = userService.login(email, password);
+            model.putSessionAttribute(AUTH, auth);
+            LOGGER.info("Controller.Success login user, id = '{}'", auth.getUser().getId());
             return Redirect.COURSE_LIST;
         } catch (UserNotExistException e) {
             errors.put(LOGIN_ERROR, INCORRECT_EMAIL_PASSWORD);

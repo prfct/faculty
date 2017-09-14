@@ -7,17 +7,16 @@
 
 <html lang="${language}">
 <head>
-    <title>Login page</title>
+    <title>Registration page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <style>
-        .error{
+        .error {
             color: red;
         }
     </style>
-
     <script type="application/javascript">
         $(function () {
             $('#login-form-link').click(function (e) {
@@ -49,30 +48,50 @@
     <input type="hidden" id="currentUrl" name="currentUrl" value=""/>
 </form>
 <div class="container">
-    <form method="post" action="/app/login">
+    <form method="post" action="/app/registration">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4><fmt:message key="login.header.text" bundle="${general}"/></h4>
+                <h4><fmt:message key="registration.header.text" bundle="${general}"/></h4>
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="emailInput">email</label>
+                    <label for="nameInput">Username</label>
+                    <input class="form-control" id="nameInput" type="text" name="username"/>
+                    <c:if test="${not empty username_error}">
+                        <span class="error">${username_error}</span>
+                    </c:if>
+                </div>
+                <div class="form-group">
+                    <label for="emailInput">Email</label>
                     <input class="form-control" id="emailInput" type="text" name="email"/>
+                    <c:if test="${not empty email_error}">
+                        <span class="error">${email_error}</span>
+                    </c:if>
                 </div>
                 <div class="form-group">
                     <label for="passwordInput">Password</label>
-                    <input class="form-control" id="passwordInput" name="password"/>
+                    <input class="form-control" id="passwordInput" type="password" name="password"/>
+                    <c:if test="${not empty password_error}">
+                        <span class="error">${password_error}</span>
+                    </c:if>
                 </div>
                 <div class="form-group">
-                    <c:if test="${login_error != null}">
+                    <label for="passwordInput">Birthday</label>
+                    <input class="form-control" id="passwordInput" type="date" name="birthday"/>
+                    <c:if test="${not empty birthday_error}">
+                        <span class="error">${birthday_error}</span>
+                    </c:if>
+                </div>
+                <div class="form-group">
+                    <c:if test="${registration_error != null}">
                         <div class="form-group">
                             <label class="error">
-                                <fmt:message key="${login_error}" bundle="${general}"/>
+                                <fmt:message key="${registration_error}" bundle="${general}"/>
                             </label>
                         </div>
                     </c:if>
                 </div>
-                <input type="submit" value="Submit" class="btn btn-primary"/>
+                <input type="submit" value="Register" class="btn btn-primary"/>
             </div>
         </div>
     </form>

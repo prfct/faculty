@@ -9,14 +9,14 @@ import com.my.faculty.service.user.UserService;
 import com.my.faculty.service.user.UserServiceImpl;
 import com.my.faculty.web.Model;
 
-public class ShowuUpdateUserPageController implements ControllerCommand {
+public class ShowUpdateUserPageController implements ControllerCommand {
     private UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public String execute(Model model) {
         User user = userService.read(Long.parseLong(model.findParameter(Key.ID)));
         User authUser = (User) model.getSessionAttribute("user");
-        if (user != null && authUser.getUserRole() == UserRole.ADMIN) {
+        if (user != null ) {
             model.setAttribute("user", user);
             model.setAttribute("roles", UserRole.values());
             return Page.SET_STUDENT;
