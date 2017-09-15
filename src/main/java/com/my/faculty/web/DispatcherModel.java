@@ -14,7 +14,7 @@ public class DispatcherModel implements Model {
     private Map<String, String[]> parameters;
     private HttpSession session;
     private Map<String, String> cookies = new HashMap<>();
-//    private Language currentLanguage;
+
     @Override
     public void setAttribute(String key, Object o) {
         attributes.put(key, o);

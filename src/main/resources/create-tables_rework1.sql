@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS user (
   COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS auth (
-  auth_id  INT                NOT NULL AUTO_INCREMENT,
-  email    VARCHAR(64) UNIQUE NOT NULL,
-  password VARCHAR(64)        NOT NULL,
-  user_id  INT                NOT NULL,
+  auth_id  INT                      NOT NULL AUTO_INCREMENT,
+  email    VARCHAR(64) UNIQUE       NOT NULL,
+  password VARCHAR(64)              NOT NULL,
+  user_id  INT UNIQUE               NOT NULL,
   PRIMARY KEY (auth_id),
   FOREIGN KEY fk_auth_user (user_id) REFERENCES user (user_id)
 )
