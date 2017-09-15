@@ -7,8 +7,10 @@ import com.my.faculty.controller.parsers.EmailParser;
 import com.my.faculty.controller.parsers.NameParser;
 import com.my.faculty.controller.parsers.PasswordParser;
 import com.my.faculty.domain.User;
+import com.my.faculty.service.CourseService;
 import com.my.faculty.service.exception.UserExistException;
 import com.my.faculty.service.UserService;
+import com.my.faculty.service.impl.CourseServiceImpl;
 import com.my.faculty.service.impl.UserServiceImpl;
 import com.my.faculty.web.Model;
 import org.slf4j.Logger;
@@ -27,7 +29,7 @@ public class RegistrationController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private UserService us;
 
-    public RegistrationController(UserService us) {
+    private RegistrationController(UserService us) {
         this.us = us;
     }
 

@@ -1,5 +1,6 @@
 package com.my.faculty.service.impl;
 
+import com.my.faculty.controller.user.RegistrationController;
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.Role;
 import com.my.faculty.domain.User;
