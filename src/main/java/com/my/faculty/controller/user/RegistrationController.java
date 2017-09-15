@@ -56,8 +56,6 @@ public class RegistrationController implements ControllerCommand {
             }
         }
         model.setAttributes(errors);
-        model.setAttribute("username", username);
-        model.setAttribute("email", email);
         LOGGER.info("Controller.Couldn't create User, email = '{}', username = '{}'", email, username);
         return Page.REGISTRATION;
     }
