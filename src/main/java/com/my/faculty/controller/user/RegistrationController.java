@@ -27,7 +27,7 @@ public class RegistrationController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private UserService us;
 
-    private RegistrationController(UserService us) {
+    RegistrationController(UserService us) {
         this.us = us;
     }
 

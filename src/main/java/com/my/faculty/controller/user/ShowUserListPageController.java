@@ -3,6 +3,7 @@ package com.my.faculty.controller.user;
 import com.my.faculty.common.Key;
 import com.my.faculty.common.Page;
 import com.my.faculty.controller.ControllerCommand;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 import com.my.faculty.service.UserService;
 import com.my.faculty.service.impl.UserServiceImpl;
@@ -15,7 +16,7 @@ public class ShowUserListPageController implements ControllerCommand {
 
     @Override
     public String execute(Model model) {
-        User authUser = (User) model.getSessionAttribute("user");
+        Auth authUser = (Auth) model.getSessionAttribute("auth");
         Set<User> users = userService.showUserList();
         if (users != null) {
             model.setAttribute(Key.USERS, users);

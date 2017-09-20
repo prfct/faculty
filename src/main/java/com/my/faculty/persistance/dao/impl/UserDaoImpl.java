@@ -6,6 +6,9 @@ import com.my.faculty.persistance.dao.UserDao;
 import com.my.faculty.persistance.db.QueryException;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -83,9 +86,9 @@ public class UserDaoImpl implements UserDao {
                 user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 user.setUsername(resultSet.getString("username"));
-//                user.setEmail(resultSet.getString("email"));
-//                user.setPassword(resultSet.getString("password"));
-//                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
+                LocalDateTime birthDate = LocalDateTime.parse(resultSet.getString("birthDate"),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+                user.setBirthDate(birthDate);
             }
             return user;
         }
@@ -99,9 +102,9 @@ public class UserDaoImpl implements UserDao {
                 User user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 user.setUsername(resultSet.getString("username"));
-//                user.setEmail(resultSet.getString("email"));
-//                user.setPassword(resultSet.getString("password"));
-//                user.setUserRole(UserRole.fromString(resultSet.getString("userRole")));
+                LocalDateTime birthDate = LocalDateTime.parse(resultSet.getString("birthDate"),
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
+                user.setBirthDate(birthDate);
                 users.add(user);
             }
             return users;

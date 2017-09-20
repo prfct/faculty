@@ -21,6 +21,7 @@ public class ShowUpdateUserPageController implements ControllerCommand {
             model.setAttribute("roles", UserRole.values());
             return Page.SET_STUDENT;
         }
+
         return Page.USER_LIST;
     }
 }

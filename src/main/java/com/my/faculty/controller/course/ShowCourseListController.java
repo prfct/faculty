@@ -17,7 +17,6 @@ import static com.my.faculty.common.Key.COURSES_ERROR;
  * @author Oleksii Petrokhalko.
  */
 public class ShowCourseListController implements ControllerCommand {
-    private static final String INCORRECT_EMAIL_PASSWORD = "login.error.incorrectEmailOrPassword";
     private static final String NO_COURSES = "course.error.list";
     private CourseService courseService = CourseServiceImpl.getInstance();
 

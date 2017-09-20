@@ -11,6 +11,7 @@ public class User {
     private Long id;
     private String username;
     private LocalDateTime birthDate;
+//    private Auth auth;
 
     public User() {
     }
@@ -43,4 +44,12 @@ public class User {
     public void setBirthDate(LocalDateTime birthDate) {
         this.birthDate = birthDate;
     }
+
+//    public Auth getAuth() {
+//        return auth;
+//    }
+//
+//    public void setAuth(Auth auth) {
+//        this.auth = auth;
+//    }
 }

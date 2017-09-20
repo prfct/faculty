@@ -1,5 +1,6 @@
 package com.my.faculty.controller.course;
 
+import com.my.faculty.common.Page;
 import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.controller.parsers.StringParser;
 import com.my.faculty.domain.Students;

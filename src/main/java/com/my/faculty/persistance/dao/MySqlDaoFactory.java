@@ -40,7 +40,8 @@ public class MySqlDaoFactory extends DaoFactory {
     @Override
     public UserDao getUserDao(AbstractConnection connection) {
         checkConnection(connection);
-        return new UserDaoImpl(getSqlConnection(connection));
+//        return new UserDaoImpl(getSqlConnection(connection));
+        return new UserDaoImpl(connection.getConnection());
     }
 
 //    @Override
@@ -59,6 +60,7 @@ public class MySqlDaoFactory extends DaoFactory {
     public AuthDao getAuthDao(AbstractConnection connection) {
         checkConnection(connection);
         return new AuthDaoImpl(getSqlConnection(connection));
+//        return new AuthDaoImpl(connection.getConnection());
     }
 
     @Override

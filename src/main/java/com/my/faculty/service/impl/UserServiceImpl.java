@@ -1,6 +1,5 @@
 package com.my.faculty.service.impl;
 
-import com.my.faculty.controller.user.RegistrationController;
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.Role;
 import com.my.faculty.domain.User;
@@ -8,9 +7,9 @@ import com.my.faculty.persistance.dao.DaoFactory;
 import com.my.faculty.persistance.db.AbstractConnection;
 import com.my.faculty.persistance.db.ConnectionPool;
 import com.my.faculty.persistance.db.MySqlConnectionPool;
+import com.my.faculty.service.UserService;
 import com.my.faculty.service.exception.UserExistException;
 import com.my.faculty.service.exception.UserNotExistException;
-import com.my.faculty.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,8 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Set<User> showUserList() {
         try (AbstractConnection connection = connectionPool.getConnection()) {
-            Set<User> users = daoFactory.getUserDao(connection).findAll();
-            return users;
+            return daoFactory.getUserDao(connection).findAll();
         }
     }
 
