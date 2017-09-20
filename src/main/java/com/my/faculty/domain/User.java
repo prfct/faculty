@@ -11,7 +11,7 @@ public class User {
     private Long id;
     private String username;
     private LocalDateTime birthDate;
-//    private Auth auth;
+    private Auth auth;
 
     public User() {
     }
@@ -45,11 +45,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-//    public Auth getAuth() {
-//        return auth;
-//    }
-//
-//    public void setAuth(Auth auth) {
-//        this.auth = auth;
-//    }
+    public Auth getAuth() {
+        return auth;
+    }
+
+    public void setAuth(Auth auth) {
+        this.auth = auth;
+    }
 }
