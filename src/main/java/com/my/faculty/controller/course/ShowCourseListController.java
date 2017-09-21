@@ -22,14 +22,12 @@ public class ShowCourseListController implements ControllerCommand {
 
     @Override
     public String execute(Model model) {
-        Map<String, Object> errors = new HashMap<>();
         List<Course> courses = courseService.showCourseListPage();
         if (courses != null && !courses.isEmpty()) {
             model.setAttribute("courses", courses);
             return Page.COURSE_LIST;
         }
-        errors.put(COURSES_ERROR, NO_COURSES);
-        model.setAttributes(errors);
+        model.setAttribute(COURSES_ERROR, NO_COURSES);
         return Page.COURSE_LIST;
     }
 }

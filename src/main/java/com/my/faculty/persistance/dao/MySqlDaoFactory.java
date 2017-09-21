@@ -2,7 +2,6 @@ package com.my.faculty.persistance.dao;
 
 import com.my.faculty.persistance.dao.impl.AuthDaoImpl;
 import com.my.faculty.persistance.dao.impl.CourseDaoImpl;
-import com.my.faculty.persistance.dao.impl.RoleDaoImpl;
 import com.my.faculty.persistance.dao.impl.UserDaoImpl;
 import com.my.faculty.persistance.db.AbstractConnection;
 import com.my.faculty.persistance.db.AbstractConnectionImpl;
@@ -40,7 +39,6 @@ public class MySqlDaoFactory extends DaoFactory {
     @Override
     public UserDao getUserDao(AbstractConnection connection) {
         checkConnection(connection);
-//        return new UserDaoImpl(getSqlConnection(connection));
         return new UserDaoImpl(connection.getConnection());
     }
 
@@ -60,13 +58,6 @@ public class MySqlDaoFactory extends DaoFactory {
     public AuthDao getAuthDao(AbstractConnection connection) {
         checkConnection(connection);
         return new AuthDaoImpl(getSqlConnection(connection));
-//        return new AuthDaoImpl(connection.getConnection());
-    }
-
-    @Override
-    public RoleDao getUserRoleDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new RoleDaoImpl(getSqlConnection(connection));
     }
 
     private void checkConnection(AbstractConnection conn) {

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Stein on 28.11.16.
  */
-public class BirthDateParser extends Parser<LocalDateTime> {
+public class BirthDateParser extends Parser<LocalDate> {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private static final String WRONG_DATE_FORMAT = "registration.error.incorrectBirthday";
     private Map<String, Object> errors;
@@ -20,12 +20,11 @@ public class BirthDateParser extends Parser<LocalDateTime> {
     }
 
     @Override
-    public LocalDateTime parse(String key, String[] params) {
-        LocalDateTime result = null;
+    public LocalDate parse(String key, String[] params) {
+        LocalDate result = null;
         try {
             if (params != null && params.length != 0) {
-                LocalDate ld = LocalDate.parse(params[0], FORMATTER);
-                result = LocalDateTime.of(ld, LocalDateTime.MIN.toLocalTime());
+                result = LocalDate.parse(params[0], FORMATTER);
             }
         } catch (DateTimeParseException e) {
             errors.put(createErrorKey(key), WRONG_DATE_FORMAT);

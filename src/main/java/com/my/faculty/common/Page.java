@@ -10,6 +10,6 @@ public interface Page {
     String BAD_URL = "/WEB-INF/views/404.jsp";
     String ERROR = "/WEB-INF/views/error.jsp";
     String COURSE_CREATE = "/WEB-INF/views/course_create.jsp";
-    String SET_STUDENT = "/WEB-INF/views/user_update.jsp";
+    String USER_UPDATE = "/WEB-INF/views/user_update.jsp";
     String COURSE_LIST = "/WEB-INF/views/course_list.jsp";
 }

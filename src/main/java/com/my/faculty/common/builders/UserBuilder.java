@@ -1,7 +1,9 @@
 package com.my.faculty.common.builders;
 
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class UserBuilder implements Builder<User> {
@@ -21,8 +23,13 @@ public class UserBuilder implements Builder<User> {
         return this;
     }
 
-    public UserBuilder withBirthDate(LocalDateTime birthDate) {
+    public UserBuilder withBirthDate(LocalDate birthDate) {
         user.setBirthDate(birthDate);
+        return this;
+    }
+
+    public UserBuilder withAuth(Auth auth) {
+        user.setAuth(auth);
         return this;
     }
 

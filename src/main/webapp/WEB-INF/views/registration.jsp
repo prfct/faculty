@@ -11,7 +11,8 @@
                     <label for="nameInput">
                         <fmt:message key="username.text" bundle="${general}"/>
                     </label>
-                    <input class="form-control" id="nameInput" type="text" name="username" value="${username}"/>
+                    <input class="form-control" id="nameInput" type="text" name="username"
+                           value="<c:out value="${user.username}"/>"/>
                     <c:if test="${not empty username_error}">
                         <span class="error">
                             <fmt:message key="${username_error}" bundle="${general}"/>
@@ -20,7 +21,8 @@
                 </div>
                 <div class="form-group">
                     <label for="emailInput"><fmt:message key="email.text" bundle="${general}"/></label>
-                    <input class="form-control" id="emailInput" type="text" name="email" value="${email}"/>
+                    <input class="form-control" id="emailInput" type="text" name="email"
+                           value="<c:out value="${user.auth.email}"/>"/>
                     <c:if test="${not empty email_error}">
                         <span class="error">
                             <fmt:message key="${email_error}" bundle="${general}"/>
@@ -42,7 +44,9 @@
                     <label for="birthdayInput">
                         <fmt:message key="birthday.text" bundle="${general}"/>
                     </label>
-                    <input class="form-control" id="birthdayInput" type="date" name="birthday"/>
+                    <input class="form-control" id="birthdayInput" type="text" name="birthday"
+                            <c:out value="${user.birthDate}"/>
+                    />
                     <c:if test="${not empty birthday_error}">
                         <span class="error">
                             <fmt:message key="${birthday_error}" bundle="${general}"/>

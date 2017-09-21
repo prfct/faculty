@@ -3,7 +3,7 @@ package com.my.faculty.controller;
 import com.my.faculty.common.Page;
 import com.my.faculty.controller.course.CreateCourseController;
 import com.my.faculty.controller.course.ShowCourseListController;
-import com.my.faculty.controller.course.ShowCreateCoursePageController;
+import com.my.faculty.controller.course.ShowCourseCreatePageController;
 import com.my.faculty.controller.user.*;
 import com.my.faculty.util.Language;
 import com.my.faculty.util.ResourceUtil;
@@ -26,7 +26,6 @@ import static com.my.faculty.common.Redirect.REDIRECT;
 public class ControllerContext {
     private Map<String, Map<HttpMethod, ControllerCommand>> controllers;
 
-
     private ControllerContext() {
         initControllers();
     }
@@ -46,11 +45,12 @@ public class ControllerContext {
                 .register("/registration", new ShowRegisterPageCommand())
                 .register("/registration", HttpMethod.POST, RegistrationController.getInstance())
                 .register("/course/list", new ShowCourseListController())
-                .register("/course/create", new ShowCreateCoursePageController())
+                .register("/course/create", new ShowCourseCreatePageController())
                 .register("/course/create", HttpMethod.POST, new CreateCourseController())
                 .register("/localization", HttpMethod.POST, new LocalizationController())
                 .register("/user/list", new ShowUserListPageController())
                 .register("/user/update", new ShowUpdateUserPageController())
+                .register("/user/update", HttpMethod.POST, new UpdateUserController())
                 .build();
 
     }

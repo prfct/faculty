@@ -10,13 +10,19 @@ import java.util.Date;
 public class User {
     private Long id;
     private String username;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private Auth auth;
 
     public User() {
     }
 
-    public User(String username, LocalDateTime birthDate) {
+    public User(String username, LocalDate birthDate) {
+        this.username = username;
+        this.birthDate = birthDate;
+    }
+
+    public User(Long id, String username, LocalDate birthDate) {
+        this.id = id;
         this.username = username;
         this.birthDate = birthDate;
     }
@@ -37,11 +43,11 @@ public class User {
         this.username = username;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

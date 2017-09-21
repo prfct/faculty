@@ -16,8 +16,6 @@ public abstract class DaoFactory {
 
     public abstract AuthDao getAuthDao(AbstractConnection connection);
 
-    public abstract RoleDao getUserRoleDao(AbstractConnection connection);
-
     public static DaoFactory getMySqlDaoFactory() {
         return MySqlDaoFactory.getInstance();
     }

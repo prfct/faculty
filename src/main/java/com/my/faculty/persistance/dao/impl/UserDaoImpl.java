@@ -1,14 +1,16 @@
 package com.my.faculty.persistance.dao.impl;
 
 import com.my.faculty.common.Key;
+import com.my.faculty.common.builders.UserBuilder;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
+import com.my.faculty.domain.UserRole;
 import com.my.faculty.persistance.dao.UserDao;
 import com.my.faculty.persistance.db.QueryException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +19,7 @@ import java.util.Set;
  * @author Oleksii Petrokhalko.
  */
 public class UserDaoImpl implements UserDao {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private Connection connection;
 
     public UserDaoImpl(Connection connection) {
@@ -28,7 +31,7 @@ public class UserDaoImpl implements UserDao {
         String query = "INSERT INTO user(username, birthDate) VALUES (?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(user.getBirthDate()));
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(user.getBirthDate().atStartOfDay()));
             int status = preparedStatement.executeUpdate();
             if (status != Key.ONE) {
                 throw new SQLException("Creating failed, no rows affected.");
@@ -43,6 +46,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
+            LOGGER.warn("UserDao.Create user exception {}", e);
             throw new QueryException(e);
         }
     }
@@ -58,11 +62,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Set<User> findAll() {
-        String query = "SELECT * FROM user";
-        try {
-            return executeAndGetUsersSet(query);
+    public void update(User user) {
+        String query = "UPDATE user SET username = ?, birthDate = ? WHERE user_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(user.getBirthDate().atStartOfDay()));
+            preparedStatement.setLong(3, user.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            LOGGER.warn("UserDao.Update user exception {}", e);
             throw new QueryException(e);
         }
     }
@@ -70,27 +78,38 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findById(Long id) {
         String query = "SELECT * FROM user WHERE user_id = ?";
-        try {
-            return executeAndGetUserById(query, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return buildUser(resultSet);
         } catch (SQLException e) {
+            LOGGER.warn("UserDao.Find user exception {}", e);
             throw new QueryException(e);
         }
     }
 
-    private User executeAndGetUserById(String query, Long id) throws SQLException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            User user = null;
-            while (resultSet.next()) {
-                user = new User();
-                user.setId(resultSet.getLong("user_id"));
-                user.setUsername(resultSet.getString("username"));
-                LocalDateTime birthDate = LocalDateTime.parse(resultSet.getString("birthDate"),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-                user.setBirthDate(birthDate);
-            }
-            return user;
+    private User buildUser(ResultSet resultSet) throws SQLException {
+        User user = null;
+        while (resultSet.next()) {
+            user = new UserBuilder()
+                    .withId(resultSet.getLong("user_id"))
+                    .withUsername(resultSet.getString("username"))
+                    .withBirthDate(resultSet.getTimestamp("birthDate")
+                            .toLocalDateTime()
+                            .toLocalDate())
+                    .build();
+        }
+        return user;
+    }
+
+    @Override
+    public Set<User> findAll() {
+        String query = "SELECT * FROM user JOIN auth ON auth.user_id = user.user_id";
+        try {
+            return executeAndGetUsersSet(query);
+        } catch (SQLException e) {
+            LOGGER.warn("UserDao.Select all users exception {}", e);
+            throw new QueryException(e);
         }
     }
 
@@ -102,9 +121,13 @@ public class UserDaoImpl implements UserDao {
                 User user = new User();
                 user.setId(resultSet.getLong("user_id"));
                 user.setUsername(resultSet.getString("username"));
-                LocalDateTime birthDate = LocalDateTime.parse(resultSet.getString("birthDate"),
-                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-                user.setBirthDate(birthDate);
+                Timestamp timestamp = resultSet.getTimestamp("birthDate");
+                user.setBirthDate(timestamp.toLocalDateTime().toLocalDate());
+                Auth auth = new Auth();
+                auth.setId(resultSet.getLong("auth_id"));
+                auth.setEmail(resultSet.getString("email"));
+                auth.setUserRole(UserRole.valueOf(resultSet.getString("userRole")));
+                user.setAuth(auth);
                 users.add(user);
             }
             return users;

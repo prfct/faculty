@@ -2,9 +2,10 @@ package com.my.faculty.service;
 
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
+import com.my.faculty.domain.UserRole;
 import com.my.faculty.service.exception.UserExistException;
-import com.my.faculty.service.exception.UserNotExistException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -12,12 +13,13 @@ import java.util.Set;
  * @author Oleksii Petrokhalko.
  */
 public interface UserService {
-    User createUser(String username, String email, String password, LocalDateTime birthDate) throws UserExistException;
+    User createUser(User user) throws UserExistException;
 
-    Auth login(String email, String password) throws UserNotExistException;
+    Auth login(String email, String password);
 
     Set<User> showUserList();
 
     User read(Long id);
 
+    void update(User user, UserRole userRole);
 }

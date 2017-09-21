@@ -1,11 +1,9 @@
-package com.my.faculty.controller.user;
+package com.my.faculty.controller;
 
 import com.my.faculty.common.Page;
 import com.my.faculty.common.Redirect;
-import com.my.faculty.controller.ControllerCommand;
 import com.my.faculty.controller.parsers.StringParser;
 import com.my.faculty.domain.Auth;
-import com.my.faculty.service.exception.UserNotExistException;
 import com.my.faculty.service.UserService;
 import com.my.faculty.service.impl.UserServiceImpl;
 import com.my.faculty.web.Model;
@@ -30,17 +28,15 @@ public class LoginController implements ControllerCommand {
         Map<String, Object> errors = new HashMap<>();
         String email = model.findParameter(EMAIL, new StringParser());
         String password = model.findParameter(PASSWORD, new StringParser());
-        try {
-            Auth auth = userService.login(email, password);
+        Auth auth = userService.login(email, password);
+        if (auth != null) {
             model.putSessionAttribute(AUTH, auth);
             LOGGER.info("Controller.Success login user, id = '{}'", auth.getUser().getId());
             return Redirect.COURSE_LIST;
-        } catch (UserNotExistException e) {
-            errors.put(LOGIN_ERROR, INCORRECT_EMAIL_PASSWORD);
-            model.setAttributes(errors);
-            LOGGER.warn("Controller.Unsuccess login for User, email = '{}'", email);
-            return Page.LOGIN;
         }
+        errors.put(LOGIN_ERROR, INCORRECT_EMAIL_PASSWORD);
+        model.setAttributes(errors);
+        LOGGER.info("Controller.Unsuccess login for User, email = '{}'", email);
+        return Page.LOGIN;
     }
-
 }

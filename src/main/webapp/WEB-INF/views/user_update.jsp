@@ -1,47 +1,42 @@
 <%@include file="/WEB-INF/includes/header.jsp" %>
 
 <div class="container">
-    <form method="post" action="/app/student/update">
+    <form method="post" action="/app/user/update">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Update user</h4>
+                <h4><fmt:message key="update_user.header.text" bundle="${general}"/></h4>
             </div>
             <div class="panel-body">
                 <div class="form-group">
-                    <label for="id">ID</label>
+                    <label for="id"> <fmt:message key="id.text" bundle="${general}"/></label>
                     <input class="form-control" id="id" type="text" name="id" value="${user.id}" readonly/>
                 </div>
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">
+                        <fmt:message key="username.text" bundle="${general}"/>
+                    </label>
                     <input class="form-control" id="username" type="text" name="username"
                            value="<c:out value="${user.username}"/>"/>
                     <c:if test="${not empty username_error}">
-                        <div class="alert alert-danger" role="alert">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                            <span class="sr-only">Error:</span>
-                                ${username_error}
-                        </div>
+                        <span class="error">
+                            <fmt:message key="${username_error}" bundle="${general}"/>
+                        </span>
                     </c:if>
                 </div>
                 <div class="form-group">
                     <label for="birthdayInput">
                         <fmt:message key="birthday.text" bundle="${general}"/>
                     </label>
-
                     <input class="form-control" id="birthdayInput" type="text" name="birthday"
-                            value="<javatime:format value="${user.birthDate}" style="M-"/>" readonly
-                    />
-                    <c:if test="${not empty birthday_error}">
-                        <span class="error">
-                            <fmt:message key="${birthday_error}" bundle="${general}"/>
-                        </span>
-                    </c:if>
+                           value="${user.birthDate}" readonly/>
                 </div>
                 <div class="form-group">
-                    <label for="userRole">Roles</label>
-                    <select multiple class="form-control" id="userRole" name="userRoles">
+                    <label for="userRole">
+                        <fmt:message key="role.text" bundle="${general}"/>
+                    </label>
+                    <select class="form-control" id="userRole" name="userRole">
                         <c:forEach items="${roles}" var="role">
-                            <option value="${role}">${role.name()}</option>
+                            <option value="${role}">${role.name}</option>
                         </c:forEach>
                     </select>
                 </div>

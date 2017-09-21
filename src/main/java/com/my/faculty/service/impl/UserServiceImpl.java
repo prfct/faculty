@@ -1,26 +1,21 @@
 package com.my.faculty.service.impl;
 
 import com.my.faculty.domain.Auth;
-import com.my.faculty.domain.Role;
 import com.my.faculty.domain.User;
+import com.my.faculty.domain.UserRole;
 import com.my.faculty.persistance.dao.DaoFactory;
 import com.my.faculty.persistance.db.AbstractConnection;
 import com.my.faculty.persistance.db.ConnectionPool;
 import com.my.faculty.persistance.db.MySqlConnectionPool;
 import com.my.faculty.service.UserService;
 import com.my.faculty.service.exception.UserExistException;
-import com.my.faculty.service.exception.UserNotExistException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
  * @author Oleksii Petrokhalko.
  */
 public class UserServiceImpl implements UserService {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private DaoFactory daoFactory = DaoFactory.getMySqlDaoFactory();
     private ConnectionPool connectionPool = MySqlConnectionPool.getInstance();
 
@@ -36,41 +31,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(String username, String email, String password, LocalDateTime birthDate)
+    public User createUser(User user)
             throws UserExistException {
         try (AbstractConnection connection = connectionPool.getConnection()) {
             connection.beginTransaction();
-            if (daoFactory.getAuthDao(connection).findByEmailAndPassword(email, password) != null) {
-                LOGGER.warn("Service.User with email '{}' and username '{}' already created", email, username);
+            Auth userAuth = user.getAuth();
+            if (daoFactory.getAuthDao(connection).findByEmail(userAuth) != null) {
                 throw new UserExistException();
             }
-            User user = new User(username, birthDate);
             User createdUser = daoFactory.getUserDao(connection).create(user);
-            Auth auth = new Auth(email, createdUser);
-            Auth createdAuth = daoFactory.getAuthDao(connection).createAuth(auth, password);
-            Long studentRoleId = daoFactory.getUserRoleDao(connection).getDefaultRole();
-            daoFactory.getUserRoleDao(connection).addRole(auth.getId(), studentRoleId);
-            LOGGER.info("Service.User with id '{}', username '{}', email '{}' successful created",
-                    createdUser.getId(), createdUser.getUsername(), createdAuth.getEmail());
+            userAuth.setUser(createdUser);
+            Auth createdAuth = daoFactory.getAuthDao(connection).createAuth(userAuth);
             connection.commitTransaction();
-            return createdUser;
+            return createdAuth.getUser();
         }
     }
 
     @Override
-    public Auth login(String email, String password) throws UserNotExistException {
+    public Auth login(String email, String password) {
         try (AbstractConnection connection = connectionPool.getConnection()) {
-            Auth userAuth = daoFactory.getAuthDao(connection).findByEmailAndPassword(email, password);
-            if (userAuth != null) {
-                Set<Role> roles = daoFactory.getUserRoleDao(connection).getRolesByUser(userAuth.getId());
-                if (roles != null && !roles.isEmpty()) {
-                    userAuth.setUserRole(roles);
-                }
-                LOGGER.info("Service.User found with id '{}'", userAuth.getUser().getId());
-                return userAuth;
-            }
-            LOGGER.warn("Service.User with email '{}' not exist or incorrect password", email);
-            throw new UserNotExistException();
+            return daoFactory.getAuthDao(connection).findByEmailAndPassword(email, password);
         }
     }
 
@@ -84,13 +64,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User read(Long id) {
         try (AbstractConnection connection = connectionPool.getConnection()) {
-            User user = daoFactory.getUserDao(connection).findById(id);
-            if (user != null) {
-                LOGGER.info("Service.User found with id '{}'", user.getId());
-                return user;
-            }
-            LOGGER.warn("Service.User with id '{}' not exist ", id);
-            return user;
+            return daoFactory.getUserDao(connection).findById(id);
+        }
+    }
+
+    @Override
+    public void update(User user, UserRole userRole) {
+        try (AbstractConnection connection = connectionPool.getConnection()) {
+            connection.beginTransaction();
+            daoFactory.getUserDao(connection).update(user);
+            Auth currentAuth = daoFactory.getAuthDao(connection).findByUserId(user.getId());
+            currentAuth.setUserRole(userRole);
+            daoFactory.getAuthDao(connection).update(currentAuth);
+            connection.commitTransaction();
         }
     }
 }

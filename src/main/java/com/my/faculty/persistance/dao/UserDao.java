@@ -20,4 +20,6 @@ public interface UserDao {
     Set<User> findAll();
 
     User findById(Long id);
+
+    void update(User user);
 }

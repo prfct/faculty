@@ -1,23 +1,19 @@
 package com.my.faculty.domain;
 
-import java.util.Set;
-
 public class Auth {
     private Long id;
     private String email;
+    private String password;
     private User user;
-    private Set<Role> userRole;
+    private UserRole userRole;
 
     public Auth() {
     }
 
-    public Auth(String email, User user) {
+    public Auth(String email, User user, UserRole userRole) {
         this.email = email;
         this.user = user;
-    }
-
-    public Auth(String email) {
-        this.email = email;
+        this.userRole = userRole;
     }
 
     public Long getId() {
@@ -36,11 +32,11 @@ public class Auth {
         this.email = email;
     }
 
-    public Set<Role> getUserRole() {
+    public UserRole getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(Set<Role> userRole) {
+    public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
 
@@ -50,5 +46,13 @@ public class Auth {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

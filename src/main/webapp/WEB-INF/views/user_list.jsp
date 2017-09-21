@@ -4,16 +4,16 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Birthdate</th>
+            <th><fmt:message key="username.text" bundle="${general}"/></th>
+            <th><fmt:message key="birthday.text" bundle="${general}"/></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${users}" var="user">
             <tr>
                 <td>${user.username}</td>
-                <td><javatime:format value="${user.birthDate}" style="M-"/></td>
-                <%--<td><javatime:parseLocalDate value="${user.birthDate}" style="MS" /></td>--%>
+                <td>${user.birthDate}</td>
+                <td>${user.auth.userRole}</td>
                 <td>
                     <a href="/app/user/update?id=${user.id}"
                        class="btn btn-success btn-sm">update</a>

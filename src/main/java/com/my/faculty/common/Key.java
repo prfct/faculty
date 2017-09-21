@@ -5,31 +5,15 @@ package com.my.faculty.common;
  */
 public interface Key {
     /*
-    Tour key constants
+    Course key constants
      */
-    String TOUR_TYPES = "types";
-    String TOUR_TYPE = "type";
-    String TOUR = "tour";
-    String TOUR_TITLE = "title";
-    String TOUR_ROUTE = "route";
-    String TOUR_PRICE = "price";
-    String TOUR_DISCOUNT = "discount";
-    String TOUR_DESCRIPTION = "description";
-    String TOUR_HOT = "hot";
-    String TOUR_ACTIVE = "active";
-    String TOURS = "tours";
     String COURSES_ERROR = "courses_error";
 
 
-
-    String LOGIN_HEADER_TEXT = "login_header_text";
-    String REGISTRATION_HEADER_TEXT = "registration_header_text";
     String LANGUAGE = "language";
-    String LOCALE_BUNDLE = "localeBundle";
     String CURRENT_URL = "currentUrl";
     String LOGIN_ERROR = "login_error";
     String REGISTRATION_ERROR = "registration_error";
-    String SHOW_REGISTER_FORM = "showRegisterForm";
     /*
     User key constants
      */
@@ -37,19 +21,17 @@ public interface Key {
     String PASSWORD = "password";
     String BIRTHDAY = "birthday";
     String USERNAME = "username";
-    String USER = "user";
     String AUTH = "auth";
     String USERS = "users";
+    String USER = "user";
+    String USER_ROLE = "userRole";
 
-    /*
-    Purchase key
-     */
-    String PURCHASES = "purchases";
 
+    String ROLES = "roles";
 
     String ID = "id";
     int ONE = 1;
-    int ONE_YEAR = 31_536_000;
     int TWO = 2;
+    int ONE_YEAR = 31_536_000;
     String URI_SEPARATOR = ":";
 }

@@ -7,7 +7,7 @@ import com.my.faculty.web.Model;
 /**
  * @author Oleksii Petrokhalko.
  */
-public class ShowCreateCoursePageController implements ControllerCommand {
+public class ShowCourseCreatePageController implements ControllerCommand {
 
     @Override
     public String execute(Model model) {
