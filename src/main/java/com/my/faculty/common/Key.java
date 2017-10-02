@@ -8,6 +8,12 @@ public interface Key {
     Course key constants
      */
     String COURSES_ERROR = "courses_error";
+    String TITLE = "title";
+    String COURSES = "courses";
+    String COURSE = "course";
+    String COURSE_ID = "courseId";
+
+
 
 
     String LANGUAGE = "language";
@@ -25,7 +31,9 @@ public interface Key {
     String USERS = "users";
     String USER = "user";
     String USER_ROLE = "userRole";
-
+    String STUDENTS_IDS = "studentsIds";
+    String STUDENTS = "students";
+    String TEACHER_ID = "teacherId";
 
     String ROLES = "roles";
 

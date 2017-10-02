@@ -1,5 +1,6 @@
 package com.my.faculty.controller;
 
+import com.my.faculty.common.Key;
 import com.my.faculty.common.Page;
 import com.my.faculty.common.builders.AuthBuilder;
 import com.my.faculty.common.builders.UserBuilder;
@@ -7,7 +8,6 @@ import com.my.faculty.controller.parsers.BirthDateParser;
 import com.my.faculty.controller.parsers.EmailParser;
 import com.my.faculty.controller.parsers.NameParser;
 import com.my.faculty.controller.parsers.PasswordParser;
-import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 import com.my.faculty.domain.UserRole;
 import com.my.faculty.service.UserService;
@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,10 +29,10 @@ import static com.my.faculty.common.Key.*;
 public class RegistrationController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final String USER_ALREADY_CREATED = "login.error.userAlreadyCreated";
-    private UserService us;
+    private UserService userService;
 
-    RegistrationController(UserService us) {
-        this.us = us;
+    RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
     private static final class InstanceHolder {
@@ -49,7 +48,8 @@ public class RegistrationController implements ControllerCommand {
         Map<String, Object> errors = new HashMap<>();
         String username = model.findParameter(USERNAME, new NameParser(errors));
         String email = model.findParameter(EMAIL, new EmailParser(errors));
-        String password = model.findParameter(PASSWORD, new PasswordParser(errors));
+//        String password = model.findParameter(PASSWORD, new PasswordParser(errors));
+        String password = model.findParameter(PASSWORD);
         LocalDate birthDate = model.findParameter(BIRTHDAY, new BirthDateParser(errors));
         User user = new UserBuilder()
                 .withUsername(username)
@@ -62,7 +62,7 @@ public class RegistrationController implements ControllerCommand {
                 .build();
         if (errors.isEmpty()) {
             try {
-                User createdUser = us.createUser(user);
+                User createdUser = userService.createUser(user);
                 LOGGER.info("Controller.Created new User, id = '{}'", createdUser.getId());
                 return Page.LOGIN;
             } catch (UserExistException e) {
@@ -70,7 +70,7 @@ public class RegistrationController implements ControllerCommand {
             }
         }
         model.setAttributes(errors);
-        model.setAttribute("user", user);
+        model.setAttribute(Key.USER, user);
         LOGGER.info("Controller.Couldn't create User, email = '{}', username = '{}'", email, username);
         return Page.REGISTRATION;
     }

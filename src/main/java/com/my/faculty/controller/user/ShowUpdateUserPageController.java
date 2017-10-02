@@ -26,10 +26,10 @@ public class ShowUpdateUserPageController implements ControllerCommand {
         if (user != null) {
             model.setAttribute(USER, user);
             model.setAttribute(ROLES, UserRole.values());
-            LOGGER.info("Controller.Success get user, id= '{}'", id);
+            LOGGER.info("Controller.Success show update page for user, id= '{}'", id);
             return USER_UPDATE;
         }
-        LOGGER.info("Controller.Cant get user, id = '{}'", id);
+        LOGGER.info("Controller.No such user, id = '{}'", id);
         return Redirect.USERS_LIST;
     }
 }

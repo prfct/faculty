@@ -1,6 +1,6 @@
 package com.my.faculty.domain;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -9,10 +9,10 @@ import java.util.List;
 public class Course {
     private Long id;
     private String title;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
     private Boolean active;
     private User user;
-    private List<Students> students;
+    private List<Student> students;
 
     public Course() {
     }
@@ -33,11 +33,11 @@ public class Course {
         this.title = title;
     }
 
-    public LocalDateTime getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 
@@ -49,11 +49,11 @@ public class Course {
         this.active = active;
     }
 
-    public List<Students> getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Students> students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 

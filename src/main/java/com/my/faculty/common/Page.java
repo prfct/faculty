@@ -11,5 +11,7 @@ public interface Page {
     String ERROR = "/WEB-INF/views/error.jsp";
     String COURSE_CREATE = "/WEB-INF/views/course_create.jsp";
     String USER_UPDATE = "/WEB-INF/views/user_update.jsp";
+    String COURSE_UPDATE = "/WEB-INF/views/course_detail.jsp";
     String COURSE_LIST = "/WEB-INF/views/course_list.jsp";
+    String MY_COURSES = "/WEB-INF/views/my_courses.jsp";
 }

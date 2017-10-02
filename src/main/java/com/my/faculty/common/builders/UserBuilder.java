@@ -3,6 +3,7 @@ package com.my.faculty.common.builders;
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,6 +26,11 @@ public class UserBuilder implements Builder<User> {
 
     public UserBuilder withBirthDate(LocalDate birthDate) {
         user.setBirthDate(birthDate);
+        return this;
+    }
+
+    public UserBuilder withBirthDate(Timestamp birthDate) {
+        user.setBirthDate(birthDate.toLocalDateTime().toLocalDate());
         return this;
     }
 

@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS user, auth, role, auth_role, course, students CASCADE;
+DROP TABLE IF EXISTS user, auth, course, student  CASCADE;

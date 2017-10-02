@@ -31,19 +31,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user)
-            throws UserExistException {
+    public User createUser(User user) throws UserExistException {
         try (AbstractConnection connection = connectionPool.getConnection()) {
             connection.beginTransaction();
-            Auth userAuth = user.getAuth();
+             Auth userAuth = user.getAuth();
             if (daoFactory.getAuthDao(connection).findByEmail(userAuth) != null) {
                 throw new UserExistException();
             }
             User createdUser = daoFactory.getUserDao(connection).create(user);
             userAuth.setUser(createdUser);
-            Auth createdAuth = daoFactory.getAuthDao(connection).createAuth(userAuth);
+            daoFactory.getAuthDao(connection).createAuth(userAuth);
             connection.commitTransaction();
-            return createdAuth.getUser();
+            return createdUser;
         }
     }
 

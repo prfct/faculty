@@ -47,6 +47,9 @@
             <li>
                 <a href="/app/user/list"><fmt:message key="user.list.text" bundle="${general}"/></a>
             </li>
+            <li>
+                <a href="/app/user/courses"><fmt:message key="user.courses.text" bundle="${general}"/></a>
+            </li>
         </ul>
     </div>
 </nav>

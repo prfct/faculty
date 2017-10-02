@@ -12,7 +12,8 @@
                         <fmt:message key="username.text" bundle="${general}"/>
                     </label>
                     <input class="form-control" id="nameInput" type="text" name="username"
-                           value="<c:out value="${user.username}"/>"/>
+                           value="<c:out value="${user.username}"/>"
+                    />
                     <c:if test="${not empty username_error}">
                         <span class="error">
                             <fmt:message key="${username_error}" bundle="${general}"/>
@@ -45,7 +46,7 @@
                         <fmt:message key="birthday.text" bundle="${general}"/>
                     </label>
                     <input class="form-control" id="birthdayInput" type="text" name="birthday"
-                            <c:out value="${user.birthDate}"/>
+                           value="<c:out value="${user.birthDate}"/>"
                     />
                     <c:if test="${not empty birthday_error}">
                         <span class="error">

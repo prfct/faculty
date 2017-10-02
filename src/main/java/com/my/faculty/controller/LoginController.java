@@ -21,7 +21,20 @@ import static com.my.faculty.common.Key.*;
 public class LoginController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private static final String INCORRECT_EMAIL_PASSWORD = "login.error.incorrectEmailOrPassword";
-    private UserService userService = UserServiceImpl.getInstance();
+    private UserService userService;
+
+    LoginController(UserService userService) {
+        this.userService = userService;
+    }
+
+    private static final class InstanceHolder {
+        private static final LoginController INSTANCE = new LoginController(UserServiceImpl.getInstance());
+    }
+
+    public static ControllerCommand getInstance() {
+        return InstanceHolder.INSTANCE;
+    }
+
 
     @Override
     public String execute(Model model) {

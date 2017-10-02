@@ -6,6 +6,7 @@ package com.my.faculty.common;
 public interface Redirect {
 
     String COURSE_LIST = "redirect:/app/course/list";
+    String MY_COURSES = "redirect:/app/user/courses";
     String USERS_LIST = "redirect:/app/user/list";
     String USER_UPDATE = "redirect:/app/user/update";
     String REDIRECT = "redirect:";

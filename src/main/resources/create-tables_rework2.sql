@@ -2,9 +2,9 @@ CREATE SCHEMA `faculty`
   DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE IF NOT EXISTS user (
-  user_id   INT                NOT NULL AUTO_INCREMENT,
-  username  VARCHAR(64) UNIQUE NOT NULL,
-  birthDate DATETIME           NOT NULL,
+  user_id   INT         NOT NULL AUTO_INCREMENT,
+  username  VARCHAR(64) NOT NULL,
+  birthDate DATETIME    NOT NULL,
   PRIMARY KEY (user_id)
 )
   CHARACTER SET utf8
@@ -23,17 +23,18 @@ CREATE TABLE IF NOT EXISTS auth (
   COLLATE utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS course (
-  course_id INT      NOT NULL AUTO_INCREMENT,
-  title     VARCHAR(64),
-  date      DATETIME NOT NULL,
-  user_id   INT,
+  course_id     INT      NOT NULL AUTO_INCREMENT,
+  title         VARCHAR(64),
+  create_date   DATETIME NOT NULL,
+  course_status BOOLEAN,
+  user_id       INT,
   CONSTRAINT fk_user_course FOREIGN KEY (user_id) REFERENCES user (user_id),
   PRIMARY KEY (course_id)
 )
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-CREATE TABLE IF NOT EXISTS students (
+CREATE TABLE IF NOT EXISTS student (
   student_id INT NOT NULL AUTO_INCREMENT,
   course_id  INT,
   CONSTRAINT fk_course_student FOREIGN KEY (course_id) REFERENCES course (course_id),
@@ -46,7 +47,4 @@ CREATE TABLE IF NOT EXISTS students (
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-
-INSERT INTO user (username, birthDate) VALUES ('admin', STR_TO_DATE('17/07/2013', '%d/%m/%Y'));
-INSERT INTO auth (email, password, userRole, user_id) VALUES ('admin', 'admin', 'ADMIN', 1);
 

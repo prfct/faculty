@@ -1,8 +1,9 @@
 package com.my.faculty.service.impl;
 
 import com.my.faculty.domain.Course;
-import com.my.faculty.domain.Students;
+import com.my.faculty.domain.Student;
 import com.my.faculty.persistance.dao.DaoFactory;
+import com.my.faculty.persistance.db.AbstractConnection;
 import com.my.faculty.persistance.db.ConnectionPool;
 import com.my.faculty.persistance.db.MySqlConnectionPool;
 import com.my.faculty.service.CourseService;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Oleksii Petrokhalko.
  */
 public class CourseServiceImpl implements CourseService {
-    private DaoFactory df = DaoFactory.getMySqlDaoFactory();
+    private DaoFactory daoFactory = DaoFactory.getMySqlDaoFactory();
     private ConnectionPool connectionPool = MySqlConnectionPool.getInstance();
 
     private CourseServiceImpl() {
@@ -28,18 +29,30 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course createCourse() {
-        return null;
+    public Course createCourse(Course course) {
+        try (AbstractConnection connection = connectionPool.getConnection()) {
+            return daoFactory.getCourseDao(connection).create(course);
+        }
     }
 
     @Override
-    public List<Students> showCreateCoursePage() {
+    public List<Student> showCreateCoursePage() {
         return null;
     }
 
     @Override
     public List<Course> showCourseListPage() {
-        List<Course> courses = df.getCourseDao(connectionPool.getConnection()).readAll();
-        return courses;
+        try (AbstractConnection connection = connectionPool.getConnection()) {
+            return daoFactory.getCourseDao(connection).readAll();
+        }
+    }
+
+    @Override
+    public Course read(Long courseId) {
+        try (AbstractConnection connection = connectionPool.getConnection()) {
+            Course course = daoFactory.getCourseDao(connection).findById(courseId);
+            course.setStudents(daoFactory.getStudentDao(connection).findAllByCourse(courseId));
+            return course;
+        }
     }
 }

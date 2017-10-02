@@ -15,10 +15,6 @@ public class AuthenticationFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        if (req.getPathInfo() == null || req.getPathInfo().startsWith("/views")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
         if ("/login".equals(req.getPathInfo())
                 || req.getSession().getAttribute("auth") != null
                 || "/registration".equals(req.getPathInfo())

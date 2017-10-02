@@ -4,7 +4,6 @@ import com.my.faculty.common.Key;
 import com.my.faculty.common.builders.AuthBuilder;
 import com.my.faculty.common.builders.UserBuilder;
 import com.my.faculty.domain.Auth;
-import com.my.faculty.domain.User;
 import com.my.faculty.domain.UserRole;
 import com.my.faculty.persistance.dao.AuthDao;
 import com.my.faculty.persistance.db.QueryException;
@@ -33,15 +32,11 @@ public class AuthDaoImpl implements AuthDao {
             if (status != Key.ONE) {
                 throw new SQLException("Creating failed, no rows affected.");
             }
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    auth.setId(generatedKeys.getLong(Key.ONE));
-                    return auth;
-                } else {
-                    throw new SQLException("Creating failed, no ID obtained.");
-                }
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                auth.setId(generatedKeys.getLong(Key.ONE));
             }
-
+            return auth;
         } catch (SQLException e) {
             LOGGER.warn("AuthDao.Create auth exception {}", e);
             throw new QueryException(e);
@@ -52,8 +47,10 @@ public class AuthDaoImpl implements AuthDao {
     public void update(Auth auth) {
         String query = "UPDATE auth SET email = ?, password = ?,  userRole = ? WHERE auth_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, auth.getUserRole().toString());
-            preparedStatement.setLong(2, auth.getId());
+            preparedStatement.setString(1, auth.getEmail());
+            preparedStatement.setString(2, auth.getPassword());
+            preparedStatement.setString(3, auth.getUserRole().toString());
+            preparedStatement.setLong(4, auth.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.warn("AuthDao.Update auth exception {}", e);
@@ -94,6 +91,7 @@ public class AuthDaoImpl implements AuthDao {
             auth = new AuthBuilder()
                     .withId(resultSet.getLong("auth_id"))
                     .withEmail(resultSet.getString("email"))
+                    .withPassword(resultSet.getString("password"))
                     .withRole(UserRole.valueOf(resultSet.getString("userRole")))
                     .build();
         }
@@ -119,6 +117,7 @@ public class AuthDaoImpl implements AuthDao {
             auth = new AuthBuilder()
                     .withId(resultSet.getLong("auth_id"))
                     .withEmail(resultSet.getString("email"))
+                    .withPassword(resultSet.getString("password"))
                     .withRole(UserRole.valueOf(resultSet.getString("userRole")))
                     .withUser(new UserBuilder()
                             .withId(resultSet.getLong("user_id"))

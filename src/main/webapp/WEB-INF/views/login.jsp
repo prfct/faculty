@@ -1,4 +1,5 @@
 <%@include file="/WEB-INF/includes/header.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="container">
     <form method="post" action="/app/login">
@@ -26,10 +27,13 @@
                         </span>
                     </c:if>
                 </div>
-                <input type="submit" value="Login" class="btn btn-primary"/>
+                <input type="submit" value="<fmt:message key="login.header.text" bundle="${general}"/>"
+                       class="btn btn-primary"/>
+                <a href="/app/registration" class="btn btn-primary">
+                    <fmt:message key="registration.header.text" bundle="${general}"/>
+                </a>
             </div>
         </div>
     </form>
 </div>
-
 <%@include file="/WEB-INF/includes/footer.jsp" %>

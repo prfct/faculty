@@ -3,13 +3,14 @@ package com.my.faculty.domain;
 /**
  * @author Oleksii Petrokhalko.
  */
-public class Students {
+public class Student {
     private Long id;
     private Course course;
+    private User user;
     private Long mark;
     private String feedback;
 
-    public Students() {
+    public Student() {
     }
 
     public Long getId() {
@@ -44,5 +45,11 @@ public class Students {
         this.feedback = feedback;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

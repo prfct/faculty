@@ -4,6 +4,8 @@ import com.my.faculty.common.Page;
 import com.my.faculty.controller.course.CreateCourseController;
 import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.course.ShowCourseCreatePageController;
+import com.my.faculty.controller.course.ShowUpdateCoursePageController;
+import com.my.faculty.controller.student.CreateStudentController;
 import com.my.faculty.controller.user.*;
 import com.my.faculty.util.Language;
 import com.my.faculty.util.ResourceUtil;
@@ -41,16 +43,19 @@ public class ControllerContext {
     private void initControllers() {
         controllers = new ControllerBuilder()
                 .register("/login", new ShowLoginPageController())
-                .register("/login", HttpMethod.POST, new LoginController())
+                .register("/login", HttpMethod.POST, LoginController.getInstance())
                 .register("/registration", new ShowRegisterPageCommand())
                 .register("/registration", HttpMethod.POST, RegistrationController.getInstance())
                 .register("/course/list", new ShowCourseListController())
                 .register("/course/create", new ShowCourseCreatePageController())
                 .register("/course/create", HttpMethod.POST, new CreateCourseController())
+                .register("/course/detail", new ShowUpdateCoursePageController())
                 .register("/localization", HttpMethod.POST, new LocalizationController())
                 .register("/user/list", new ShowUserListPageController())
                 .register("/user/update", new ShowUpdateUserPageController())
                 .register("/user/update", HttpMethod.POST, new UpdateUserController())
+                .register("/user/courses", new ShowUserCoursesPageController())
+                .register("/course/assign", new CreateStudentController())
                 .build();
 
     }

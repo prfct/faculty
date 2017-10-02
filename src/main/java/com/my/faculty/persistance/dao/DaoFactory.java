@@ -10,9 +10,7 @@ public abstract class DaoFactory {
 
     public abstract UserDao getUserDao(AbstractConnection connection);
 
-//    public abstract TeacherDao getTeacherDao(AbstractConnection connection);
-
-//    public abstract StudentDao getStudentDao(AbstractConnection connection);
+    public abstract StudentDao getStudentDao(AbstractConnection connection);
 
     public abstract AuthDao getAuthDao(AbstractConnection connection);
 

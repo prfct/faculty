@@ -42,8 +42,8 @@ public class MySqlConnectionPool implements ConnectionPool {
         basicDataSource.setUrl(properties.getProperty("url"));
         basicDataSource.setUsername(properties.getProperty("user"));
         basicDataSource.setPassword(properties.getProperty("password"));
-//        basicDataSource.setMinIdle(5);
-//        basicDataSource.setMaxIdle(10);
+        basicDataSource.setMinIdle(5);
+        basicDataSource.setMaxIdle(10);
     }
 
     @Override

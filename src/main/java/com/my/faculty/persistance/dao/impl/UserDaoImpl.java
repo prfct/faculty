@@ -32,19 +32,13 @@ public class UserDaoImpl implements UserDao {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getUsername());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(user.getBirthDate().atStartOfDay()));
-            int status = preparedStatement.executeUpdate();
-            if (status != Key.ONE) {
-                throw new SQLException("Creating failed, no rows affected.");
+            preparedStatement.executeUpdate();
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                Long generatedId = generatedKeys.getLong(Key.ONE);
+                user.setId(generatedId);
             }
-            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    Long generatedId = generatedKeys.getLong(Key.ONE);
-                    user.setId(generatedId);
-                    return user;
-                } else {
-                    throw new SQLException("Creating failed, no ID obtained.");
-                }
-            }
+            return user;
         } catch (SQLException e) {
             LOGGER.warn("UserDao.Create user exception {}", e);
             throw new QueryException(e);

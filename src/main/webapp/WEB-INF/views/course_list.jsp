@@ -15,18 +15,22 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Date</th>
+                    <th><fmt:message key="id.text" bundle="${general}"/></th>
+                    <th><fmt:message key="course_title.text" bundle="${general}"/></th>
+                    <th><fmt:message key="course_date.text" bundle="${general}"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${course}" var="course">
+                <c:forEach items="${courses}" var="course">
                     <tr>
                         <td><a href="/app/course/detail?id=${course.id}">${course.id}</a></td>
                         <td><c:out value="${course.title}"/></td>
-                        <td><javatime:format value="${course.createDate}" style="MS"/></td>
+                        <td>${course.createDate}</td>
+                        <td>
+                            <a href="/app/course/assign?id=${course.id}" class="btn btn-primary">
+                                <fmt:message key="assign.text" bundle="${general}"/>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

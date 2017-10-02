@@ -15,8 +15,9 @@
                 <td>${user.birthDate}</td>
                 <td>${user.auth.userRole}</td>
                 <td>
-                    <a href="/app/user/update?id=${user.id}"
-                       class="btn btn-success btn-sm">update</a>
+                    <a href="/app/user/update?id=${user.id}" class="btn btn-success btn-sm">
+                        update
+                    </a>
                 </td>
             </tr>
         </c:forEach>
