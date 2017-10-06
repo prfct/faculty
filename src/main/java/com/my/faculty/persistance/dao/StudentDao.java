@@ -1,9 +1,8 @@
 package com.my.faculty.persistance.dao;
 
-import com.my.faculty.domain.Course;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.Student;
 
-import java.util.List;
 import java.util.Set;
 
 public interface StudentDao {
@@ -11,7 +10,13 @@ public interface StudentDao {
 
     Student findByCourseAndStudentId(Student student);
 
-    List<Student> findAllByCourse(Long courseId);
+    Set<Student> findAllByCourse(Long courseId);
 
-    Set<Student> findAllByStudentId(Long userId);
+    Set<Student> findStudentDetail(Long userId);
+
+    Student findById(Long studentId);
+
+    void update(Student student);
+
+    Set<Long> findStudentIdsByTeacher(Long teacherId);
 }

@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.my.faculty.common.Key.COURSES_ERROR;
 
@@ -24,7 +25,7 @@ public class ShowCourseListController implements ControllerCommand {
 
     @Override
     public String execute(Model model) {
-        List<Course> courses = courseService.showCourseListPage();
+        Set<Course> courses = courseService.getAllCourses();
         if (courses != null && !courses.isEmpty()) {
             model.setAttribute(Key.COURSES, courses);
             return Page.COURSE_LIST;

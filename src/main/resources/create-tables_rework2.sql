@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS student (
   user_id    INT,
   CONSTRAINT fk_user_student FOREIGN KEY (user_id) REFERENCES user (user_id),
   mark       INT,
-  feedback   VARCHAR(256),
+  feedback   VARCHAR(512),
   PRIMARY KEY (student_id)
 )
   CHARACTER SET utf8

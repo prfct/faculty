@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -110,7 +111,7 @@ public class UserDaoImpl implements UserDao {
     private Set<User> executeAndGetUsersSet(String query) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            Set<User> users = new HashSet<>();
+            Set<User> users = new LinkedHashSet<>();
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getLong("user_id"));

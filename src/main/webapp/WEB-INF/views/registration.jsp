@@ -63,7 +63,8 @@
                         </div>
                     </c:if>
                 </div>
-                <input type="submit" value="Register" class="btn btn-primary"/>
+                <input type="submit" value="<fmt:message key="registration.header.text" bundle="${general}"/>"
+                       class="btn btn-primary"/>
             </div>
         </div>
     </form>

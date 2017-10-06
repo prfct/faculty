@@ -48,8 +48,7 @@ public class RegistrationController implements ControllerCommand {
         Map<String, Object> errors = new HashMap<>();
         String username = model.findParameter(USERNAME, new NameParser(errors));
         String email = model.findParameter(EMAIL, new EmailParser(errors));
-//        String password = model.findParameter(PASSWORD, new PasswordParser(errors));
-        String password = model.findParameter(PASSWORD);
+        String password = model.findParameter(PASSWORD, new PasswordParser(errors));
         LocalDate birthDate = model.findParameter(BIRTHDAY, new BirthDateParser(errors));
         User user = new UserBuilder()
                 .withUsername(username)

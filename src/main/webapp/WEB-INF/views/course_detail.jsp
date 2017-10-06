@@ -36,9 +36,12 @@
                 <label>
                     <fmt:message key="current_students.text" bundle="${general}"/>
                 </label>
+                <br>
                 <c:forEach items="${course.students}" var="student">
-                    <br>
                     ${student.user.username}
+                    <a href="/app/student/update?id=${student.id}" class="btn btn-success btn-sm">
+                        <fmt:message key="student_update.text" bundle="${general}"/>
+                    </a>
                 </c:forEach>
             </div>
         </div>

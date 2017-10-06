@@ -4,6 +4,7 @@ import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Student;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Oleksii Petrokhalko.
@@ -11,10 +12,11 @@ import java.util.List;
 public interface CourseDao {
     Course create(Course course);
 
-    List<Course> readAll();
+    Set<Course> readAll();
 
     Course findById(Long courseId);
 
-    Long findTeacherInCourseById(Student student);
+    Long findCourseByUser(Student student);
 
+    Set<Course> findCoursesByTeacherId(Long id);
 }

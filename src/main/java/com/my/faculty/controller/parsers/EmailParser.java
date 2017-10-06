@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Stein on 19.12.16.
  */
-public class EmailParser  extends Parser<String> {
+public class EmailParser extends Parser<String> {
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private static final String INCORRECT_EMAIL = "registration.error.incorrectEmail";
@@ -30,7 +30,7 @@ public class EmailParser  extends Parser<String> {
         return email;
     }
 
-    private static boolean validate(String email) {
+    private boolean validate(String email) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
         return matcher.find();
     }

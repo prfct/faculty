@@ -33,6 +33,7 @@ public interface Key {
     String USER_ROLE = "userRole";
     String STUDENTS_IDS = "studentsIds";
     String STUDENTS = "students";
+    String STUDENT = "student";
     String TEACHER_ID = "teacherId";
 
     String ROLES = "roles";
@@ -42,4 +43,6 @@ public interface Key {
     int TWO = 2;
     int ONE_YEAR = 31_536_000;
     String URI_SEPARATOR = ":";
+    String MARK = "mark";
+    String FEEDBACK = "feedback";
 }

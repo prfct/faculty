@@ -55,6 +55,10 @@ public class DispatcherModel implements Model {
         cookies.put(key, val);
     }
 
+    public void invalidateSession(){
+        session.invalidate();
+    }
+
     public Map<String, Object> getAttributes() {
         return attributes;
     }

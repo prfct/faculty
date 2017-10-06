@@ -50,6 +50,16 @@ public class RegistrationControllerTest extends AbstractCreator {
         when(model.findParameter(eq(Key.EMAIL), any(EmailParser.class))).thenReturn(EMAIL);
         when(model.findParameter(eq(Key.PASSWORD), any(PasswordParser.class))).thenReturn(PASSWORD);
         when(model.findParameter(eq(BIRTHDAY), any(BirthDateParser.class))).thenReturn(BIRTH_DATE);
+        User user = new UserBuilder()
+                .withUsername(USERNAME)
+                .withBirthDate(BIRTH_DATE)
+                .withAuth(new AuthBuilder()
+                        .withEmail(EMAIL)
+                        .withPassword(PASSWORD)
+                        .withRole(UserRole.STUDENT)
+                        .build())
+                .build();
+
         User createdUser = new UserBuilder()
                 .withId(1L)
                 .withUsername(USERNAME)
@@ -61,19 +71,24 @@ public class RegistrationControllerTest extends AbstractCreator {
                         .build())
                 .build();
 
-        when(userService.createUser(any(User.class))).thenReturn(createdUser);
+        when(userService.createUser(user)).thenReturn(createdUser);
         String actual = registrationController.execute(model);
         assertEquals(Page.LOGIN, actual);
         verify(model).findParameter(eq(Key.USERNAME), any(NameParser.class));
         verify(model).findParameter(eq(Key.EMAIL), any(EmailParser.class));
         verify(model).findParameter(eq(Key.PASSWORD), any(PasswordParser.class));
         verify(model).findParameter(eq(BIRTHDAY), any(BirthDateParser.class));
-        verify(userService).createUser(any(User.class));
+        verify(userService).createUser(eq(user));
         verifyNoMoreInteractions(userService, model);
     }
 
-    @Test()
+    @Test
     public void testRegistrationWithException() throws Exception {
+        when(model.findParameter(eq(Key.USERNAME), any(NameParser.class))).thenReturn(USERNAME);
+        when(model.findParameter(eq(Key.EMAIL), any(EmailParser.class))).thenReturn(EMAIL);
+        when(model.findParameter(eq(Key.PASSWORD), any(PasswordParser.class))).thenReturn(PASSWORD);
+        when(model.findParameter(eq(BIRTHDAY), any(BirthDateParser.class))).thenReturn(BIRTH_DATE);
+
         User user = new UserBuilder()
                 .withUsername(USERNAME)
                 .withBirthDate(BIRTH_DATE)
@@ -84,7 +99,7 @@ public class RegistrationControllerTest extends AbstractCreator {
                         .build())
                 .build();
 
-        when(userService.createUser(any())).thenThrow(UserExistException.class);
+        when(userService.createUser(user)).thenThrow(UserExistException.class);
         String actual = registrationController.execute(model);
         assertEquals(Page.REGISTRATION, actual);
         verify(model).findParameter(eq(Key.USERNAME), any(NameParser.class));
@@ -92,8 +107,8 @@ public class RegistrationControllerTest extends AbstractCreator {
         verify(model).findParameter(eq(Key.PASSWORD), any(PasswordParser.class));
         verify(model).findParameter(eq(BIRTHDAY), any(BirthDateParser.class));
         verify(model).setAttributes(argThat(new ErrorMatcher()));
-        verify(model).setAttribute(eq(Key.USER), any(User.class));
-        verify(userService).createUser(any(User.class));
+        verify(model).setAttribute(eq(Key.USER), eq(user));
+        verify(userService).createUser(eq(user));
         verifyNoMoreInteractions(userService, model);
     }
 
@@ -106,21 +121,6 @@ public class RegistrationControllerTest extends AbstractCreator {
             Map<String, Object> map = (Map<String, Object>) argument;
             return map.size() == 1 && map.containsKey(REGISTRATION_ERROR)
                     && map.containsValue(INCORRECT_EMAIL_PASSWORD);
-        }
-    }
-
-    private class UserRegistrationMatcher extends ArgumentMatcher<User> {
-        private User user;
-
-        UserRegistrationMatcher(User user) {
-            this.user = user;
-        }
-        @Override
-        public boolean matches(Object argument) {
-            User otherUser = (User) argument;
-            return user.getUsername().equals(otherUser.getUsername())
-                    && user.getBirthDate().equals(otherUser.getBirthDate())
-                    && user.getAuth().equals(otherUser.getAuth());
         }
     }
 }

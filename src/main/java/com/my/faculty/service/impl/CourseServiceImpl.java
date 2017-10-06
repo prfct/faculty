@@ -1,5 +1,6 @@
 package com.my.faculty.service.impl;
 
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Student;
 import com.my.faculty.persistance.dao.DaoFactory;
@@ -9,6 +10,7 @@ import com.my.faculty.persistance.db.MySqlConnectionPool;
 import com.my.faculty.service.CourseService;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Oleksii Petrokhalko.
@@ -36,12 +38,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Student> showCreateCoursePage() {
-        return null;
-    }
-
-    @Override
-    public List<Course> showCourseListPage() {
+    public Set<Course> getAllCourses() {
         try (AbstractConnection connection = connectionPool.getConnection()) {
             return daoFactory.getCourseDao(connection).readAll();
         }
@@ -51,8 +48,17 @@ public class CourseServiceImpl implements CourseService {
     public Course read(Long courseId) {
         try (AbstractConnection connection = connectionPool.getConnection()) {
             Course course = daoFactory.getCourseDao(connection).findById(courseId);
-            course.setStudents(daoFactory.getStudentDao(connection).findAllByCourse(courseId));
+            if (course != null) {
+                course.setStudents(daoFactory.getStudentDao(connection).findAllByCourse(courseId));
+            }
             return course;
+        }
+    }
+
+    @Override
+    public Set<Course> getCoursesByTeacherId(Auth auth) {
+        try (AbstractConnection connection = connectionPool.getConnection()) {
+            return daoFactory.getCourseDao(connection).findCoursesByTeacherId(auth.getId());
         }
     }
 }

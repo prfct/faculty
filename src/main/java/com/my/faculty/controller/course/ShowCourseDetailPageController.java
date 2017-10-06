@@ -17,7 +17,7 @@ import static com.my.faculty.common.Key.COURSE;
 import static com.my.faculty.common.Key.USERS;
 
 
-public class ShowUpdateCoursePageController implements ControllerCommand {
+public class ShowCourseDetailPageController implements ControllerCommand {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private CourseService courseService = CourseServiceImpl.getInstance();
     private UserService userService = UserServiceImpl.getInstance();
@@ -31,9 +31,8 @@ public class ShowUpdateCoursePageController implements ControllerCommand {
             model.setAttribute(USERS, userService.showUserList());
             LOGGER.info("Controller.Success show update page for course, id= '{}'", courseId);
             return Page.COURSE_UPDATE;
-
         }
-        LOGGER.info("Controller.No such course , id= '{}'", courseId);
+        LOGGER.info("Controller.Cant show page for course, id= '{}'", courseId);
         return Redirect.COURSE_LIST;
     }
 }

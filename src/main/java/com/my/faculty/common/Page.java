@@ -14,4 +14,7 @@ public interface Page {
     String COURSE_UPDATE = "/WEB-INF/views/course_detail.jsp";
     String COURSE_LIST = "/WEB-INF/views/course_list.jsp";
     String MY_COURSES = "/WEB-INF/views/my_courses.jsp";
+    String MY_STUDENTS = "/WEB-INF/views/my_students.jsp";
+    String STUDENT_UPDATE = "/WEB-INF/views/student_update.jsp";
+    String NOT_ACCESS = "/WEB-INF/views/not_access.jsp";
 }

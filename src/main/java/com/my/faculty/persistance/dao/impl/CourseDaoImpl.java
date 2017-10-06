@@ -10,8 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Oleksii Petrokhalko.
@@ -46,18 +45,32 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public Long findTeacherInCourseById(Student student) {
-        String query = "SELECT course_id AS courseId FROM course WHERE user_id = ?";
+    public Long findCourseByUser(Student student) {
+        String query = "SELECT course_id AS courseId FROM course WHERE user_id = ? AND course_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, student.getUser().getId());
+            preparedStatement.setLong(2, student.getCourse().getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             Long courseId = null;
             while (resultSet.next()) {
-                courseId = resultSet.getLong("course_id");
+                courseId = resultSet.getLong("courseId");
             }
             return courseId;
         } catch (SQLException e) {
             LOGGER.warn("CourseDao.Find course by id exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+    @Override
+    public Set<Course> findCoursesByTeacherId(Long id) {
+        String query = "SELECT * FROM course WHERE user_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return new LinkedHashSet<>(buildCourseListWithoutTeacher(resultSet));
+        } catch (SQLException e) {
+            LOGGER.warn("CourseDao.Select all courses exception {}", e);
             throw new QueryException(e);
         }
     }
@@ -82,6 +95,7 @@ public class CourseDaoImpl implements CourseDao {
                     .withId(resultSet.getLong("course_id"))
                     .withTitle(resultSet.getString("title"))
                     .withCreateDate(resultSet.getTimestamp("create_date"))
+                    .withStatus(resultSet.getBoolean("course_status"))
                     .withTeacher(new UserBuilder()
                             .withId(resultSet.getLong("user_id"))
                             .withUsername(resultSet.getString("username"))
@@ -93,7 +107,7 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public List<Course> readAll() {
+    public Set<Course> readAll() {
         String query = "SELECT * FROM course JOIN user ON course.user_id = user.user_id";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -104,18 +118,33 @@ public class CourseDaoImpl implements CourseDao {
         }
     }
 
-    private List<Course> buildCourseList(ResultSet resultSet) throws SQLException {
+    private Set<Course> buildCourseList(ResultSet resultSet) throws SQLException {
+        Set<Course> courses = new LinkedHashSet<>();
+        while (resultSet.next()) {
+            Course course = new CourseBuilder()
+                    .withId(resultSet.getLong("course_id"))
+                    .withTitle(resultSet.getString("title"))
+                    .withCreateDate(resultSet.getTimestamp("create_date"))
+                    .withStatus(resultSet.getBoolean("course_status"))
+                    .withTeacher(new UserBuilder()
+                            .withId(resultSet.getLong("user_id"))
+                            .withUsername(resultSet.getString("username"))
+                            .withBirthDate(resultSet.getTimestamp("birthDate"))
+                            .build())
+                    .build();
+            courses.add(course);
+        }
+        return courses;
+    }
+
+    private List<Course> buildCourseListWithoutTeacher(ResultSet resultSet) throws SQLException {
         List<Course> courses = new ArrayList<>();
         while (resultSet.next()) {
             Course course = new CourseBuilder()
                     .withId(resultSet.getLong("course_id"))
                     .withTitle(resultSet.getString("title"))
                     .withCreateDate(resultSet.getTimestamp("create_date"))
-                    .withTeacher(new UserBuilder()
-                            .withId(resultSet.getLong("user_id"))
-                            .withUsername(resultSet.getString("username"))
-                            .withBirthDate(resultSet.getTimestamp("birthDate"))
-                            .build())
+                    .withStatus(resultSet.getBoolean("course_status"))
                     .build();
             courses.add(course);
         }

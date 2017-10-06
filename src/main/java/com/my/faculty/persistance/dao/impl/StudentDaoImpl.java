@@ -4,6 +4,7 @@ import com.my.faculty.common.Key;
 import com.my.faculty.common.builders.CourseBuilder;
 import com.my.faculty.common.builders.StudentBuilder;
 import com.my.faculty.common.builders.UserBuilder;
+import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Student;
 import com.my.faculty.persistance.dao.StudentDao;
@@ -12,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class StudentDaoImpl implements StudentDao {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
@@ -46,7 +44,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student findByCourseAndStudentId(Student student) {
-        String query = "SELECT * FROM student WHERE course_id =? AND user_id = ?";
+        String query = "SELECT * FROM student WHERE course_id = ? AND user_id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, student.getCourse().getId());
@@ -72,20 +70,20 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> findAllByCourse(Long courseId) {
+    public Set<Student> findAllByCourse(Long courseId) {
         String query = "SELECT * FROM student JOIN user ON student.user_id = user.user_id WHERE course_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, courseId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            return buildStudentsList(resultSet);
+            return buildStudentsSet(resultSet);
         } catch (SQLException e) {
             LOGGER.warn("StudentDao.Create student exception {}", e);
             throw new QueryException(e);
         }
     }
 
-    private List<Student> buildStudentsList(ResultSet resultSet) throws SQLException {
-        List<Student> students = new ArrayList<>();
+    private Set<Student> buildStudentsSet(ResultSet resultSet) throws SQLException {
+        Set<Student> students = new LinkedHashSet<>();
         while (resultSet.next()) {
             Student student = new StudentBuilder()
                     .withId(resultSet.getLong("student_id"))
@@ -102,13 +100,13 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public Set<Student> findAllByStudentId(Long userId) {
+    public Set<Student> findStudentDetail(Long userId) {
         String query = "SELECT * FROM student JOIN course ON student.course_id = course.course_id " +
                 "WHERE student.user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            Set<Student> students = new HashSet<>();
+            Set<Student> students = new LinkedHashSet<>();
             while (resultSet.next()) {
                 Student student = new StudentBuilder()
                         .withId(resultSet.getLong("student_id"))
@@ -129,4 +127,52 @@ public class StudentDaoImpl implements StudentDao {
             throw new QueryException(e);
         }
     }
+
+    @Override
+    public Student findById(Long studentId) {
+        String query = "SELECT * FROM student WHERE student_id =?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, studentId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return buildStudent(resultSet);
+        } catch (SQLException e) {
+            LOGGER.warn("StudentDao.Create student exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+    @Override
+    public void update(Student student) {
+        String query = "UPDATE student SET mark = ?, feedback = ? WHERE student_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, student.getMark());
+            preparedStatement.setString(2, student.getFeedback());
+            preparedStatement.setLong(3, student.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.warn("StudentDao.Update student exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+    @Override
+    public Set<Long> findStudentIdsByTeacher(Long teacherId) {
+        String query = "SELECT student_id " +
+                "FROM student WHERE course_id = (SELECT course_id  FROM course WHERE user_id = ?)";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, teacherId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Set<Long> students = new HashSet<>();
+            while (resultSet.next()) {
+                students.add(resultSet.getLong("student_id"));
+            }
+            return students;
+        } catch (SQLException e) {
+            LOGGER.warn("StudentDao.Find student ids exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+
 }

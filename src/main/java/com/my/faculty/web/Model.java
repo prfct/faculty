@@ -1,9 +1,7 @@
 package com.my.faculty.web;
 
 import com.my.faculty.controller.parsers.Parser;
-import com.my.faculty.util.Language;
 
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -23,5 +21,7 @@ public interface Model {
     Object getSessionAttribute(String s);
 
     void setCookie(String key, String val);
+
+    void invalidateSession();
 
 }

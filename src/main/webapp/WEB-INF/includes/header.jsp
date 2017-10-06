@@ -2,6 +2,7 @@
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://faculty.ua/tags" prefix="cm" %>
 
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="messages" var="general"/>
@@ -26,13 +27,6 @@
 </head>
 <body>
 <nav class="navbar navbar-inverse">
-    <form action="/app/localization" method="post">
-        <select id="language" name="language" onchange="submit()" style="position: absolute; right: 2px; top: 2px;">
-            <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
-            <option value="ru" ${language == 'ru' ? 'selected' : ''}>Russian</option>
-        </select>
-        <input type="hidden" id="currentUrl" name="currentUrl" value=""/>
-    </form>
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/app/login"><fmt:message key="faculty.text" bundle="${general}"/></a>
@@ -50,7 +44,34 @@
             <li>
                 <a href="/app/user/courses"><fmt:message key="user.courses.text" bundle="${general}"/></a>
             </li>
+            <li>
+                <a href="/app/teacher/students"><fmt:message key="teacher.students.text" bundle="${general}"/></a>
+            </li>
         </ul>
+
+        <div style="position: absolute; right: 2px; top: 14px;">
+            <form action="/app/localization" method="post" style="float: left;">
+                <select id="language" name="language" onchange="submit()">
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>English</option>
+                    <option value="ru" ${language == 'ru' ? 'selected' : ''}>Russian</option>
+                </select>
+                <input type="hidden" id="currentUrl" name="currentUrl" value=""/>
+            </form>
+            <c:choose>
+                <c:when test="${auth != null}">
+                    <div style="float: left; margin-left: 10px; color: #9d9d9d;">
+                        <fmt:message key="welcome.text" bundle="${general}"/>
+                        <c:out value="${auth.user.username}"/>
+                        (<a href="/app/logout">logout</a>)
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div style="float: left; margin-left: 10px; color: #9d9d9d;">
+                        <fmt:message key="welcome.anonymous.text" bundle="${general}"/>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </nav>
 

@@ -4,8 +4,10 @@ import com.my.faculty.common.Page;
 import com.my.faculty.controller.course.CreateCourseController;
 import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.course.ShowCourseCreatePageController;
-import com.my.faculty.controller.course.ShowUpdateCoursePageController;
+import com.my.faculty.controller.course.ShowCourseDetailPageController;
 import com.my.faculty.controller.student.CreateStudentController;
+import com.my.faculty.controller.student.ShowStudentUpdatePageController;
+import com.my.faculty.controller.student.UpdateStudentController;
 import com.my.faculty.controller.user.*;
 import com.my.faculty.util.Language;
 import com.my.faculty.util.ResourceUtil;
@@ -49,13 +51,17 @@ public class ControllerContext {
                 .register("/course/list", new ShowCourseListController())
                 .register("/course/create", new ShowCourseCreatePageController())
                 .register("/course/create", HttpMethod.POST, new CreateCourseController())
-                .register("/course/detail", new ShowUpdateCoursePageController())
+                .register("/course/detail", new ShowCourseDetailPageController())
                 .register("/localization", HttpMethod.POST, new LocalizationController())
                 .register("/user/list", new ShowUserListPageController())
                 .register("/user/update", new ShowUpdateUserPageController())
                 .register("/user/update", HttpMethod.POST, new UpdateUserController())
-                .register("/user/courses", new ShowUserCoursesPageController())
+                .register("/user/courses", new ShowStudentCoursesPageController())
                 .register("/course/assign", new CreateStudentController())
+                .register("/teacher/students", new ShowTeacherStudentsPageController())
+                .register("/student/update", new ShowStudentUpdatePageController())
+                .register("/student/update", HttpMethod.POST, new UpdateStudentController())
+                .register("/logout", new LogoutController())
                 .build();
 
     }
