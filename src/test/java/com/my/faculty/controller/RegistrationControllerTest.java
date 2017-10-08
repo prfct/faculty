@@ -22,8 +22,8 @@ import org.mockito.ArgumentMatcher;
 import java.time.LocalDate;
 import java.util.Map;
 
-import static com.my.faculty.common.Key.*;
-import static org.junit.Assert.*;
+import static com.my.faculty.common.Key.BIRTHDAY;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;

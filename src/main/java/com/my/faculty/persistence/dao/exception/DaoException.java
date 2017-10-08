@@ -1,6 +1,4 @@
-package com.my.faculty.persistance.db;
-
-import java.sql.SQLException;
+package com.my.faculty.persistence.dao.exception;
 
 public class DaoException extends RuntimeException {
     public DaoException(String message) {

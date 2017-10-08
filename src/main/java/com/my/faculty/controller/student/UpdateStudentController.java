@@ -40,14 +40,10 @@ public class UpdateStudentController implements ControllerCommand {
                 .withFeedback(feedback)
                 .build();
         if (errors.isEmpty()) {
-            try {
                 studentService.update(student, auth);
                 model.setAttribute(STUDENT, student);
                 LOGGER.info("Controller.Success update student '{}'", studentId);
                 return Redirect.MY_STUDENTS;
-            } catch (StudentAccessException e) {
-                return Page.NOT_ACCESS;
-            }
         }
         model.setAttributes(errors);
         model.setAttribute(STUDENT, student);

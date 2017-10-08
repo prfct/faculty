@@ -1,9 +1,12 @@
-package com.my.faculty.persistance.db;
+package com.my.faculty.persistence.dao.impl;
+
+import com.my.faculty.persistence.dao.DaoConnection;
+import com.my.faculty.persistence.dao.exception.DaoException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class AbstractConnectionImpl implements AbstractConnection {
+public class JdbcDaoConnection implements DaoConnection {
     private static final String CAN_NOT_BEGIN_TRANSACTION = "Can not begin transaction.";
     private static final String CAN_NOT_COMMIT_TRANSACTION = "Can not commit transaction";
     private static final String CAN_NOT_ROLLBACK_TRANSACTION = "Can not rollback transaction";
@@ -12,7 +15,7 @@ public class AbstractConnectionImpl implements AbstractConnection {
     private boolean transactionBegun = false;
     private boolean transactionCommitted = false;
 
-    public AbstractConnectionImpl(Connection connection) {
+    public JdbcDaoConnection(Connection connection) {
         this.connection = connection;
     }
 

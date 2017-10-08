@@ -34,7 +34,8 @@
                     <label for="passwordInput">
                         <fmt:message key="password.text" bundle="${general}"/>
                     </label>
-                    <input class="form-control" id="passwordInput" type="password" name="password"/>
+                    <input class="form-control" id="passwordInput" type="password" name="password"
+                           value="<c:out value="${password}" />"/>
                     <c:if test="${not empty password_error}">
                         <span class="error">
                             <fmt:message key="${password_error}" bundle="${general}"/>

@@ -35,7 +35,6 @@ public class LoginController implements ControllerCommand {
         return InstanceHolder.INSTANCE;
     }
 
-
     @Override
     public String execute(Model model) {
         Map<String, Object> errors = new HashMap<>();

@@ -1,11 +1,11 @@
-package com.my.faculty.persistance.dao.impl;
+package com.my.faculty.persistence.dao.impl;
 
 import com.my.faculty.common.Key;
 import com.my.faculty.common.builders.CourseBuilder;
 import com.my.faculty.common.builders.UserBuilder;
 import com.my.faculty.domain.*;
-import com.my.faculty.persistance.dao.CourseDao;
-import com.my.faculty.persistance.db.QueryException;
+import com.my.faculty.persistence.dao.CourseDao;
+import com.my.faculty.persistence.dao.exception.QueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

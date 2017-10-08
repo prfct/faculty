@@ -51,24 +51,3 @@
 </div>
 
 <%@include file="/WEB-INF/includes/footer.jsp" %>
-
-
-<%--<div class="form-group">--%>
-<%--<label for="studentIds">--%>
-<%--<fmt:message key="student.text" bundle="${general}"/>--%>
-<%--</label>--%>
-<%--<select multiple class="form-control" id="studentIds" name="studentIds">--%>
-<%--<c:forEach items="${users}" var="user">--%>
-<%--<c:if test="${user.auth.userRole == 'STUDENT'}">--%>
-<%--<option value="${user.id}">${user.username}</option>--%>
-<%--</c:if>--%>
-<%--</c:forEach>--%>
-<%--</select>--%>
-<%--<c:if test="${not empty studentIds_error}">--%>
-<%--<div class="alert alert-danger" role="alert">--%>
-<%--<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>--%>
-<%--<span class="sr-only">Error:</span>--%>
-<%--${studentIds_error}--%>
-<%--</div>--%>
-<%--</c:if>--%>
-<%--</div>--%>

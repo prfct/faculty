@@ -19,8 +19,8 @@ import static com.my.faculty.common.Key.COURSES_ERROR;
 import static com.my.faculty.common.Key.ID;
 
 public class CreateStudentController implements ControllerCommand {
-    private static final String CANT_ASSIGN = "course.error.assign";
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final String CANT_ASSIGN = "course.error.assign";
     private StudentService studentService = StudentServiceImpl.getInstance();
 
 

@@ -21,6 +21,7 @@ import static com.my.faculty.domain.UserRole.TEACHER;
  * Created by Stein on 16.12.16.
  */
 public class AuthenticationFilter implements Filter {
+    private static final Pattern URL_PATTERN = Pattern.compile("([^\\?]+)(\\?.*)?");
     private Map<String, List<UserRole>> pathPermissionsMap = new HashMap<>();
 
     @Override
@@ -81,10 +82,9 @@ public class AuthenticationFilter implements Filter {
     }
 
     private String parsePath(String path) {
-        Pattern urlPattern = Pattern.compile("([^\\?]+)(\\?.*)?");
         String result = null;
         if (path != null) {
-            Matcher matcher = urlPattern.matcher(path);
+            Matcher matcher = URL_PATTERN.matcher(path);
             if (matcher.matches()) {
                 result = matcher.group(ONE);
             }

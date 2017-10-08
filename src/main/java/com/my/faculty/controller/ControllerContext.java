@@ -2,9 +2,9 @@ package com.my.faculty.controller;
 
 import com.my.faculty.common.Page;
 import com.my.faculty.controller.course.CreateCourseController;
-import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.course.ShowCourseCreatePageController;
 import com.my.faculty.controller.course.ShowCourseDetailPageController;
+import com.my.faculty.controller.course.ShowCourseListController;
 import com.my.faculty.controller.student.CreateStudentController;
 import com.my.faculty.controller.student.ShowStudentUpdatePageController;
 import com.my.faculty.controller.student.UpdateStudentController;
@@ -19,6 +19,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Map;
 
 import static com.my.faculty.common.Key.*;
@@ -63,7 +66,6 @@ public class ControllerContext {
                 .register("/student/update", HttpMethod.POST, new UpdateStudentController())
                 .register("/logout", new LogoutController())
                 .build();
-
     }
 
     public void process(HttpMethod httpMethod, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

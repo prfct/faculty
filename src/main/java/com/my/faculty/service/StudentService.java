@@ -12,7 +12,7 @@ public interface StudentService {
 
     Set<Student> findStudentCourses(Auth auth);
 
-    Student findStudentById(Long studentId);
+    Student findStudentById(Long studentId, Auth auth) throws StudentAccessException;
 
-    void update(Student student, Auth auth) throws StudentAccessException;
+    void update(Student student, Auth auth);
 }

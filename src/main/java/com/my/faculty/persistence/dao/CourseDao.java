@@ -1,9 +1,8 @@
-package com.my.faculty.persistance.dao;
+package com.my.faculty.persistence.dao;
 
 import com.my.faculty.domain.Course;
 import com.my.faculty.domain.Student;
 
-import java.util.List;
 import java.util.Set;
 
 /**

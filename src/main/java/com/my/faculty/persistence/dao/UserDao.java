@@ -1,8 +1,6 @@
-package com.my.faculty.persistance.dao;
+package com.my.faculty.persistence.dao;
 
-import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.User;
-import com.my.faculty.domain.UserRole;
 
 import java.util.Collection;
 import java.util.Set;

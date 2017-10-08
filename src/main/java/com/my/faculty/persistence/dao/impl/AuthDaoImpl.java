@@ -1,12 +1,12 @@
-package com.my.faculty.persistance.dao.impl;
+package com.my.faculty.persistence.dao.impl;
 
 import com.my.faculty.common.Key;
 import com.my.faculty.common.builders.AuthBuilder;
 import com.my.faculty.common.builders.UserBuilder;
 import com.my.faculty.domain.Auth;
 import com.my.faculty.domain.UserRole;
-import com.my.faculty.persistance.dao.AuthDao;
-import com.my.faculty.persistance.db.QueryException;
+import com.my.faculty.persistence.dao.AuthDao;
+import com.my.faculty.persistence.dao.exception.QueryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

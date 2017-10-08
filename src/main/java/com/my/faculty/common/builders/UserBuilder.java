@@ -5,7 +5,6 @@ import com.my.faculty.domain.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class UserBuilder implements Builder<User> {
     private User user;

@@ -1,4 +1,4 @@
-package com.my.faculty.persistance.db;
+package com.my.faculty.persistence.dao.exception;
 
 /**
  * @author Oleksii Petrokhalko.

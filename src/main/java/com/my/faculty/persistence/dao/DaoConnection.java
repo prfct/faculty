@@ -1,7 +1,7 @@
-package com.my.faculty.persistance.db;
+package com.my.faculty.persistence.dao;
 
 
-public interface AbstractConnection extends AutoCloseable {
+public interface DaoConnection extends AutoCloseable {
 
     void beginTransaction();
 
