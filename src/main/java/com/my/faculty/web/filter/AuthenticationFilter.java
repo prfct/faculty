@@ -54,7 +54,7 @@ public class AuthenticationFilter implements Filter {
         pathPermissionsMap.put("/course/assign", Arrays.asList(UserRole.values()));
         pathPermissionsMap.put("/user/courses", Arrays.asList(UserRole.values()));
         pathPermissionsMap.put("/course/create", Collections.singletonList(ADMIN));
-        pathPermissionsMap.put("/course/detail", Arrays.asList(ADMIN, TEACHER));
+        pathPermissionsMap.put("/course/detail", Arrays.asList(UserRole.values()));
         pathPermissionsMap.put("/user/list", Collections.singletonList(ADMIN));
         pathPermissionsMap.put("/user/update", Collections.singletonList(ADMIN));
         pathPermissionsMap.put("/teacher/students", Collections.singletonList(TEACHER));

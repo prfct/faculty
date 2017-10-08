@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://faculty.ua/tags" prefix="cm" %>
+<c:set var = "ADMIN" value="${auth.userRole == 'ADMIN'}"/>
+<c:set var = "TEACHER" value="${auth.userRole == 'TEACHER'}"/>
 
 <fmt:setLocale value="${language}"/>
 <fmt:setBundle basename="messages" var="general"/>
@@ -12,7 +14,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="application/javascript">
         $(document).ready(function () {
@@ -33,19 +35,25 @@
         </div>
         <ul class="nav navbar-nav">
             <li>
-                <a href="/app/course/create"><fmt:message key="faculty.create.text" bundle="${general}"/></a>
+                <c:if test="${ADMIN}">
+                    <a href="/app/course/create"><fmt:message key="faculty.create.text" bundle="${general}"/></a>
+                </c:if>
             </li>
             <li>
                 <a href="/app/course/list"><fmt:message key="faculty.list.text" bundle="${general}"/></a>
             </li>
             <li>
-                <a href="/app/user/list"><fmt:message key="user.list.text" bundle="${general}"/></a>
+                <c:if test="${ADMIN}">
+                    <a href="/app/user/list"><fmt:message key="user.list.text" bundle="${general}"/></a>
+                </c:if>
             </li>
             <li>
                 <a href="/app/user/courses"><fmt:message key="user.courses.text" bundle="${general}"/></a>
             </li>
             <li>
-                <a href="/app/teacher/students"><fmt:message key="teacher.students.text" bundle="${general}"/></a>
+                <c:if test="${TEACHER}">
+                    <a href="/app/teacher/students"><fmt:message key="teacher.students.text" bundle="${general}"/></a>
+                </c:if>
             </li>
         </ul>
 

@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import static com.my.faculty.common.Key.ZERO;
+
 /**
  * @author Oleksii Petrokhalko.
  */
@@ -47,16 +49,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Collection<User> read(int offset, int limit) {
-        return null;
-    }
-
-    @Override
-    public Integer findUserCount() {
-        return null;
-    }
-
-    @Override
     public void update(User user) {
         String query = "UPDATE user SET username = ?, birthDate = ? WHERE user_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -66,6 +58,22 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.warn("UserDao.Update user exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+    @Override
+    public int findUserCount() {
+        String query = "SELECT COUNT(*) AS count FROM user";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int count = ZERO;
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+            return count;
+        } catch (SQLException e) {
+            LOGGER.warn("UserDao.Find user exception {}", e);
             throw new QueryException(e);
         }
     }
@@ -84,8 +92,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public Set<User> findAll(int offset, int limit) {
+        String query = "SELECT * FROM user JOIN auth ON auth.user_id = user.user_id LIMIT ?,?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, offset);
+            preparedStatement.setInt(2, limit);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return buildUserList(resultSet);
+        } catch (SQLException e) {
+            LOGGER.warn("UserDao.Select all users exception {}", e);
+            throw new QueryException(e);
+        }
+    }
+
+    @Override
     public Set<User> findAll() {
-        String query = "SELECT * FROM user JOIN auth ON auth.user_id = user.user_id";
+        String query = "SELECT * FROM user JOIN auth ON auth.user_id = user.user_id ";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();

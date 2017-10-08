@@ -25,6 +25,11 @@
                 <td>${student.feedback}</td>
             </tr>
         </c:forEach>
+        <ul class="pagination">
+            <c:forEach var="i" begin="1" end="${pagesCount}">
+                <li><a href="/app/user/list?page=${i}">${i}</a></li>
+            </c:forEach>
+        </ul>
         </tbody>
     </table>
 </div>

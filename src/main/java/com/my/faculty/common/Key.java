@@ -41,8 +41,12 @@ public interface Key {
     String ID = "id";
     int ONE = 1;
     int TWO = 2;
+    int ZERO = 0;
     int ONE_YEAR = 31_536_000;
     String URI_SEPARATOR = ":";
     String MARK = "mark";
     String FEEDBACK = "feedback";
+    String PAGES_QUANTITY = "pagesQuantity";
+    String PAGE_NUMBER = "page";
+
 }

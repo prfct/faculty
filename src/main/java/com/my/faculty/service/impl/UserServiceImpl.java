@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) throws UserExistException {
         try (DaoConnection connection = daoFactory.getDaoConnection()) {
             connection.beginTransaction();
-             Auth userAuth = user.getAuth();
+            Auth userAuth = user.getAuth();
             if (daoFactory.getAuthDao(connection).findByEmail(userAuth) != null) {
                 throw new UserExistException();
             }
@@ -48,6 +48,15 @@ public class UserServiceImpl implements UserService {
     public Auth login(String email, String password) {
         try (DaoConnection connection = daoFactory.getDaoConnection()) {
             return daoFactory.getAuthDao(connection).findByEmailAndPassword(email, password);
+        }
+    }
+
+    @Override
+    public Set<User> showUserList(int pageCount) {
+        try (DaoConnection connection = daoFactory.getDaoConnection()) {
+            int entitiesPerPage = 3;
+            int from = (pageCount - 1) * entitiesPerPage;
+            return daoFactory.getUserDao(connection).findAll(from, entitiesPerPage);
         }
     }
 
@@ -74,6 +83,14 @@ public class UserServiceImpl implements UserService {
             currentAuth.setUserRole(userRole);
             daoFactory.getAuthDao(connection).update(currentAuth);
             connection.commitTransaction();
+        }
+    }
+
+    @Override
+    public int pagesQuantity(int entitiesPerPage) {
+        try (DaoConnection connection = daoFactory.getDaoConnection()) {
+            int userCount = daoFactory.getUserDao(connection).findUserCount();
+            return (int) Math.ceil(1.0 * userCount / entitiesPerPage);
         }
     }
 }

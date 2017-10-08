@@ -17,9 +17,13 @@ public interface UserService {
 
     Auth login(String email, String password);
 
+    Set<User> showUserList(int pageCount);
+
     Set<User> showUserList();
 
     User read(Long id);
 
     void update(User user, UserRole userRole);
+
+    int pagesQuantity(int userCount);
 }

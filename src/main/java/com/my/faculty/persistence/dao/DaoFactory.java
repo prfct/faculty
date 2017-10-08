@@ -8,21 +8,21 @@ import com.my.faculty.persistence.dao.exception.DaoException;
  */
 public abstract class DaoFactory {
     private static final String FACTORY_CLASS_NAME = "com.my.faculty.persistence.dao.impl.JdbcDaoFactory";
-    private static DaoFactory INSTANCE;
+    private static DaoFactory instance;
 
     public static DaoFactory getInstance() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             synchronized (DaoFactory.class) {
-                if (INSTANCE == null) {
+                if (instance == null) {
                     try {
-                        INSTANCE = (DaoFactory) Class.forName(FACTORY_CLASS_NAME).newInstance();
+                        instance = (DaoFactory) Class.forName(FACTORY_CLASS_NAME).newInstance();
                     } catch (Exception e) {
                         throw new DaoException(e);
                     }
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     public abstract DaoConnection getDaoConnection();

@@ -11,13 +11,14 @@ import java.util.Set;
 public interface UserDao {
     User create(User user);
 
-    Collection<User> read(int offset, int limit);
-
-    Integer findUserCount();
+    Set<User> findAll(int offset, int limit);
 
     Set<User> findAll();
 
     User findById(Long id);
 
     void update(User user);
+
+    int findUserCount();
+
 }
